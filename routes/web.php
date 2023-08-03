@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\ServicePackageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,4 +74,11 @@ Route::middleware(['auth', 'isAdmin'])->group(function (){
     Route::get('/edit-services/{id}',[ServiceController::class, 'edit'])->name('services.edit');
     Route::put('/update-services/{id}',[ServiceController::class, 'update'])->name('services.update');
     Route::get('/delete-services/{id}',[ServiceController::class, 'destroy'])->name('services.delete');
+
+    Route::get('/service-packages',[ServicePackageController::class, 'index'])->name('service-packages');
+    Route::get('/create-service-packages',[ServicePackageController::class, 'create'])->name('service-packages.create');
+    Route::post('/store-service-packages',[ServicePackageController::class, 'store'])->name('service-packages.store');
+    Route::get('/edit-service-packages/{id}',[ServicePackageController::class, 'edit'])->name('service-packages.edit');
+    Route::put('/update-service-packages/{id}',[ServicePackageController::class, 'update'])->name('service-packages.update');
+    Route::get('/delete-service-packages/{id}',[ServicePackageController::class, 'destroy'])->name('service-packages.delete');
 });
