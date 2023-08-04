@@ -111,6 +111,8 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect('products')->with('status', 'Category deleted successfully');
+        toastr()->success('Xóa sản phẩm thành công');
+
+        return redirect('products');
     }
 }

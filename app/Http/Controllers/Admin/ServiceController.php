@@ -89,6 +89,10 @@ class ServiceController extends Controller
     {
         $service = Service::getServiceById($id);
 
+        $image = 'storage/' . $service->image;
+
+        $this->deleteImage($image);
+
         $service->delete();
 
         toastr()->success('Xóa dich vụ thành công');
