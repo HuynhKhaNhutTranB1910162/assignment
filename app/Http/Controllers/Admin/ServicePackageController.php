@@ -36,6 +36,15 @@ class ServicePackageController extends Controller
 
         $data['image'] = $this->uploadImage($request, 'image', 'images');
 
+        if (! empty($request->input('original_price'))) {
+            $data['original_price'] = $request->input('original_price');
+        } else {
+            foreach ($data['service_ids'] as $id) {
+                $service = Service::getServiceById($id);
+                $data['original_price'] += $service->original_price;
+            }
+        }
+
         if (! empty($request->input('selling_price'))) {
             $data['selling_price'] = $request->input('selling_price');
         } else {
@@ -53,7 +62,7 @@ class ServicePackageController extends Controller
             'selling_price' => $data['selling_price'],
         ]);
 
-        toastr()->success('Thêm mới dịch vụ thành công');
+        toastr()->success('Thêm mới gói dịch vụ thành công');
 
         return redirect('service-packages');
     }
@@ -85,11 +94,21 @@ class ServicePackageController extends Controller
             $data['image'] = $this->uploadImage($request, 'image', 'images');
         }
 
+        if (! empty($request->input('original_price'))) {
+            $data['original_price'] = $request->input('original_price');
+        } else {
+            foreach ($data['service_ids'] as $id) {
+                $service = Service::getServiceById($id);
+                $data['original_price'] += $service->original_price;
+            }
+        }
+
         if (!empty($request->input('selling_price'))) {
             $data['selling_price'] = $request->input('selling_price');
         } else {
             foreach ($data['service_ids'] as $id) {
-                $service = Service::getServiceById($id);$data['selling_price'] += $service->selling_price;
+                $service = Service::getServiceById($id);
+                $data['selling_price'] += $service->selling_price;
             }
         }
 
@@ -113,10 +132,14 @@ class ServicePackageController extends Controller
     {
         $servicepackage = ServicePackage::getServicePackageById($id);
 
+        $image = 'storage/' . $servicepackage->image;
+
+        $this->deleteImage($image);
+
         $servicepackage->delete();
 
         toastr()->success('Xóa gói dịch vụ thành công');
 
-        return redirect('service_packages');
+        return redirect('service-packages');
     }
 }

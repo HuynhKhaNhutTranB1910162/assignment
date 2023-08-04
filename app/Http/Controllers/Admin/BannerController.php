@@ -69,6 +69,10 @@ class BannerController extends Controller
     {
         $banner = Banner::getBannerById($id);
 
+        $image = 'storage/' . $banner->image;
+
+        $this->deleteImage($image);
+
         $banner->delete();
 
         toastr()->success('Xóa banner thành công');

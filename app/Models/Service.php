@@ -21,7 +21,7 @@ class Service extends Model
 
     public function servicePackages(): BelongsToMany
     {
-        return $this->belongsToMany(ServicePackage::class, 'service_service_packages','service_id', 'service_package_id');
+        return $this->belongsToMany(ServicePackage::class, 'service_service_packages', 'service_id', 'service_package_id');
     }
 
     public static function getServiceById(string $id): Model|Collection|Builder|array|null
