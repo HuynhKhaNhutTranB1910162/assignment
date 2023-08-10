@@ -13,7 +13,7 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $products = Product::all();
-        return view('client.product.index', compact('categories','products'));
+        return view('client.product.index', compact('categories', 'products'));
     }
 
     public function showDetail(string $id): View
@@ -21,6 +21,6 @@ class ProductController extends Controller
         $categories = Category::all();
         $product = Product::getProductById($id);
         $productRelated = Product::all();
-        return view('client.product.detail' , compact('categories' , 'productRelated', 'product'));
+        return view('client.product.detail', compact('categories', 'productRelated', 'product'));
     }
 }

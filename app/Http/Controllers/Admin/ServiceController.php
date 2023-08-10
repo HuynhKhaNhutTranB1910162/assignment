@@ -8,7 +8,6 @@ use App\Http\Requests\Service\UpdateServiceRequest;
 use App\Models\Service;
 use App\Traits\ImageTrait;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ServiceController extends Controller
@@ -51,10 +50,10 @@ class ServiceController extends Controller
     {
         $service = Service::getServiceById($id);
 
-        return view('admin.services.edit', compact('service') );
+        return view('admin.services.edit', compact('service'));
     }
 
-    public function update(UpdateServiceRequest $request,String $id): RedirectResponse
+    public function update(UpdateServiceRequest $request, String $id): RedirectResponse
     {
         $data = $request->validated();
 

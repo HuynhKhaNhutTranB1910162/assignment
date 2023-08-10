@@ -18,7 +18,7 @@ class ClientController extends Controller
         $services = Service::all();
         $servicePackages = ServicePackage::all();
 
-        return view('client.home.home', compact('banners','categories', 'services', 'servicePackages'));
+        return view('client.home.home', compact('banners', 'categories', 'services', 'servicePackages'));
     }
 
 }

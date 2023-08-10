@@ -33,9 +33,9 @@ class BannerController extends Controller
 
         $data['image'] = $this->uploadImage($request, 'image', 'images');
 
-         Banner::query()->create([
-            'image' => $data['image'],
-            'status' => $data['status'],
+        Banner::query()->create([
+           'image' => $data['image'],
+           'status' => $data['status'],
         ]);
 
         toastr()->success('Thêm mới banner thành công');
@@ -47,10 +47,10 @@ class BannerController extends Controller
     {
         $banner = Banner::getBannerById($id);
 
-        return view('admin.banners.edit', compact('banner') );
+        return view('admin.banners.edit', compact('banner'));
     }
 
-    public function update(UpdateBannerRequest $request,String $id): RedirectResponse
+    public function update(UpdateBannerRequest $request, String $id): RedirectResponse
     {
         $data = $request->validated();
 

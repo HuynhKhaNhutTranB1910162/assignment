@@ -9,7 +9,6 @@ use App\Models\Service;
 use App\Models\ServicePackage;
 use App\Traits\ImageTrait;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ServicePackageController extends Controller
@@ -76,10 +75,10 @@ class ServicePackageController extends Controller
 
         $servicepackage = ServicePackage::getServicePackageById($id);
 
-        return view('admin.servicepackages.edit', compact('servicepackage','services'));
+        return view('admin.servicepackages.edit', compact('servicepackage', 'services'));
     }
 
-    public function update(UpdateServicePackageRequest $request,string $id): RedirectResponse
+    public function update(UpdateServicePackageRequest $request, string $id): RedirectResponse
     {
         $data = $request->validated();
 

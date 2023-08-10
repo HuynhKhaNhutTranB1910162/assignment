@@ -58,12 +58,12 @@ class UserController extends Controller
 
         $user = User::getUserById($id);
 
-         $user->update([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'is_admin' => $data['is_admin'],
-             'password'=> Hash::make($data['password']),
+        $user->update([
+           'name' => $data['name'],
+           'email' => $data['email'],
+           'phone' => $data['phone'],
+           'is_admin' => $data['is_admin'],
+            'password'=> Hash::make($data['password']),
 
         ]);
 

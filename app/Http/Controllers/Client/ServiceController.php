@@ -13,16 +13,16 @@ class ServiceController extends Controller
     {
         $categories = Category::all();
         $services = Service::all();
-        return view('client.service.index', compact('services','categories'));
+        return view('client.service.index', compact('services', 'categories'));
     }
 
     public function showDetail(string $id): View
     {
         $categories = Category::all();
         $service = Service::getServiceById($id);
-//        $services = Service::all();
+        //        $services = Service::all();
 
-        return view('client.service.detail' ,compact('categories', 'service'));
+        return view('client.service.detail', compact('categories', 'service'));
     }
 
 }
