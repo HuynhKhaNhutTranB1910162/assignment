@@ -6,14 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Traits\ImageTrait;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\ProductImage;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
-use League\CommonMark\Extension\CommonMark\Node\Inline\Strong;
 
 class ProductController extends Controller
 {
@@ -64,7 +60,7 @@ class ProductController extends Controller
 
         $categories = Category::all();
 
-        return view('admin.products.edit', compact('product','categories'));
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     public function update(UpdateProductRequest $request, string $id): RedirectResponse

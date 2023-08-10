@@ -8,7 +8,6 @@ use App\Http\Requests\Service\UpdateServiceRequest;
 use App\Models\Service;
 use App\Traits\ImageTrait;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ServiceController extends Controller
@@ -18,7 +17,7 @@ class ServiceController extends Controller
 
     public function index(): View
     {
-        $services = Service::query()->orderByDesc('created_at')->paginate($this->itemPerPage);
+        $services = Service::orderByDesc('created_at')->paginate($this->itemPerPage);
 
         return view('admin.services.index', compact('services'));
     }
@@ -34,7 +33,7 @@ class ServiceController extends Controller
 
         $data['image'] = $this->uploadImage($request, 'image', 'images');
 
-        Service::query()->create([
+        Service::create([
             'name' => $data['name'],
             'description' => $data['description'],
             'image' => $data['image'],
@@ -51,10 +50,10 @@ class ServiceController extends Controller
     {
         $service = Service::getServiceById($id);
 
-        return view('admin.services.edit', compact('service') );
+        return view('admin.services.edit', compact('service'));
     }
 
-    public function update(UpdateServiceRequest $request,String $id): RedirectResponse
+    public function update(UpdateServiceRequest $request, String $id): RedirectResponse
     {
         $data = $request->validated();
 
@@ -72,7 +71,7 @@ class ServiceController extends Controller
             $data['image'] = $this->uploadImage($request, 'image', 'images');
         }
 
-        $service->query()->update([
+        $service->update([
             'name' => $data['name'],
             'description' => $data['description'],
             'image' => $data['image'],

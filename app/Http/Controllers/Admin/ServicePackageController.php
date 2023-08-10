@@ -9,7 +9,6 @@ use App\Models\Service;
 use App\Models\ServicePackage;
 use App\Traits\ImageTrait;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ServicePackageController extends Controller
@@ -45,7 +44,7 @@ class ServicePackageController extends Controller
             }
         }
 
-        if (! empty($request->input('selling_price'))) {
+        if (!empty($request->input('selling_price'))) {
             $data['selling_price'] = $request->input('selling_price');
         } else {
             foreach ($data['service_ids'] as $id) {
@@ -54,17 +53,20 @@ class ServicePackageController extends Controller
             }
         }
 
-        ServicePackage::query()->create([
+        $servicepackage =  ServicePackage::query()->create([
             'name' => $data['name'],
-            'description' => $data['description'],
             'image' => $data['image'],
+            'description' => $data['description'],
             'original_price' => $data['original_price'],
             'selling_price' => $data['selling_price'],
         ]);
 
+        $servicepackage->services()->sync($data['service_ids']);
+
         toastr()->success('Thêm mới gói dịch vụ thành công');
 
         return redirect('service-packages');
+
     }
 
     public function edit(string $id): View
@@ -73,10 +75,10 @@ class ServicePackageController extends Controller
 
         $servicepackage = ServicePackage::getServicePackageById($id);
 
-        return view('admin.servicepackages.edit', compact('servicepackage','services'));
+        return view('admin.servicepackages.edit', compact('servicepackage', 'services'));
     }
 
-    public function update(UpdateServicePackageRequest $request,string $id): RedirectResponse
+    public function update(UpdateServicePackageRequest $request, string $id): RedirectResponse
     {
         $data = $request->validated();
 
