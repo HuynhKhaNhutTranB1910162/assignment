@@ -18,7 +18,7 @@ class ServiceController extends Controller
 
     public function index(): View
     {
-        $services = Service::query()->orderByDesc('created_at')->paginate($this->itemPerPage);
+        $services = Service::orderByDesc('created_at')->paginate($this->itemPerPage);
 
         return view('admin.services.index', compact('services'));
     }
@@ -34,7 +34,7 @@ class ServiceController extends Controller
 
         $data['image'] = $this->uploadImage($request, 'image', 'images');
 
-        Service::query()->create([
+        Service::create([
             'name' => $data['name'],
             'description' => $data['description'],
             'image' => $data['image'],
@@ -72,7 +72,7 @@ class ServiceController extends Controller
             $data['image'] = $this->uploadImage($request, 'image', 'images');
         }
 
-        $service->query()->update([
+        $service->update([
             'name' => $data['name'],
             'description' => $data['description'],
             'image' => $data['image'],

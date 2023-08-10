@@ -10,6 +10,10 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\ServicePackageController;
 
+use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Client\ProductController as ClientProductController;
+use App\Http\Controllers\Client\ServiceController as ClientServiceController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,11 +29,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Auth::routes();
-//
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-//
-//Route::get('/dasboard',function (){ return view('admin.layouts.app');});
+
+//Client
+Route::get('/',[ClientController::class,'index'])->name('client');
+Route::get('/category',[ClientController::class,'showcategory']);
+Route::get('/shop',[ClientProductController::class,'index'])->name('shop');
+Route::get('/product/{id}',[ClientProductController::class,'showDetail'])->name('product-detail');
+Route::get('/client-service',[ClientServiceController::class,'index'])->name('client-service');
+Route::get('/service/{id}',[ClientServiceController::class,'showDetail'])->name('service-detail');
+
+//end Client
 
 Auth::routes(['verify' => true]);
 

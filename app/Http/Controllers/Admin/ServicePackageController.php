@@ -45,7 +45,7 @@ class ServicePackageController extends Controller
             }
         }
 
-        if (! empty($request->input('selling_price'))) {
+        if (!empty($request->input('selling_price'))) {
             $data['selling_price'] = $request->input('selling_price');
         } else {
             foreach ($data['service_ids'] as $id) {
@@ -54,17 +54,20 @@ class ServicePackageController extends Controller
             }
         }
 
-        ServicePackage::query()->create([
+        $servicepackage =  ServicePackage::query()->create([
             'name' => $data['name'],
-            'description' => $data['description'],
             'image' => $data['image'],
+            'description' => $data['description'],
             'original_price' => $data['original_price'],
             'selling_price' => $data['selling_price'],
         ]);
 
+        $servicepackage->services()->sync($data['service_ids']);
+
         toastr()->success('Thêm mới gói dịch vụ thành công');
 
         return redirect('service-packages');
+
     }
 
     public function edit(string $id): View
