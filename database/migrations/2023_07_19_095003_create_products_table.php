@@ -12,7 +12,7 @@ return new class () extends Migration {
             $table->integer('category_id');
             $table->string('name');
             $table->string('sku');
-            $table->string('description');
+            $table->text('description');
             $table->string('stock');
             $table->double('original_price');
             $table->double('selling_price');

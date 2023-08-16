@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
+use App\Models\ProductImage;
 use Illuminate\Http\RedirectResponse;
 use App\Traits\ImageTrait;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -38,7 +40,7 @@ class ProductController extends Controller
 
         $data['image'] = $this->uploadImage($request, 'image', 'images');
 
-        $product = Product::query()->create([
+        $product = Product::create([
             'name' => $data['name'],
             'stock' => $data['stock'],
             'sku' => $data['sku'],
@@ -48,6 +50,20 @@ class ProductController extends Controller
             'original_price' => $data['original_price'],
             'selling_price' => $data['selling_price'],
         ]);
+
+        if (isset($data['product_image'])) {
+            $images = $data['product_image'];
+
+            foreach ($images as $image) {
+                $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->move('images/', $fileName);
+
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image' => 'images/' . $fileName,
+                ]);
+            }
+        }
 
         toastr()->success('Thêm mới sản phẩm thành công');
 
@@ -81,7 +97,7 @@ class ProductController extends Controller
             $data['image'] = $this->uploadImage($request, 'image', 'images');
         }
 
-        $product->query()->update([
+        $product->update([
             'name' => $data['name'],
             'stock' => $data['stock'],
             'sku' => $data['sku'],
@@ -91,6 +107,20 @@ class ProductController extends Controller
             'original_price' => $data['original_price'],
             'selling_price' => $data['selling_price'],
         ]);
+
+        if (isset($data['product_image'])) {
+            $images = $data['product_image'];
+
+            foreach ($images as $image) {
+                $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->move('images/', $fileName);
+
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image' => 'images/' . $fileName,
+                ]);
+            }
+        }
 
         toastr()->success('Cập nhật sản phẩm ' . $product->name . ' thành công');
 
@@ -105,10 +135,28 @@ class ProductController extends Controller
 
         $this->deleteImage($image);
 
+        foreach ($product->productImages as $image) {
+            File::delete($image->image);
+            $image->delete();
+        }
+
         $product->delete();
 
         toastr()->success('Xóa sản phẩm thành công');
 
         return redirect('products');
+    }
+
+    public function deleteProductImage(string $id): RedirectResponse
+    {
+        $image = ProductImage::findOrFail($id);
+
+        File::delete($image->image);
+
+        $image->delete();
+
+        toastr()->success('Xóa ảnh phụ thành công');
+
+        return redirect()->back();
     }
 }

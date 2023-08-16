@@ -62,7 +62,6 @@
                                     </div>
                                     <div class="product__item__text">
                                         <h6>{{$service->name}}</h6>
-                                        <a href="#" class="add-cart">+ Add To Cart</a>
                                         <div class="rating">
                                             <i class="fa fa-star-o"></i>
                                             <i class="fa fa-star-o"></i>
@@ -76,17 +75,7 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="product__pagination">
-                                <a class="active" href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <span>...</span>
-                                <a href="#">21</a>
-                            </div>
-                        </div>
-                    </div>
+                    {{ $services->links('client.pagination.index') }}
                 </div>
             </div>
         </div>

@@ -18,8 +18,30 @@
                     <div class="product__details__content">
                         <div class="container">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="">
+                                <div class="col-lg-2">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">
+                                                <div class="product__thumb__pic set-bg" data-setbg="{{ asset('storage/' . $product->image) }}">
+                                                </div>
+                                            </a>
+                                        </li>
+                                        @foreach($product->productImages as $image)
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">
+                                                <div class="product__thumb__pic set-bg" data-setbg="{{ asset($image->image) }}">
+                                                </div>
+                                            </a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                        <div class="product__details__pic__item">
+                                            <img src="{{ asset('storage/' . $product->image) }}" alt="">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="row d-flex justify-content-center">
@@ -40,9 +62,11 @@
                                                 </div>
                                                 <div class="product__details__cart__option">
                                                     <div class="quantity">
-                                                        <div class="pro-qty"><span class="fa fa-angle-up dec qtybtn"></span>
+                                                        <div class="pro-qty">
+                                                            <span onclick="incQuantity" class="fa fa-angle-up dec qtybtn"></span>
                                                             <input type="text" value="1">
-                                                            <span class="fa fa-angle-down inc qtybtn"></span></div>
+                                                            <span onclick="decQuantity" class="fa fa-angle-down inc qtybtn"></span>
+                                                        </div>
                                                     </div>
                                                     <a href="#" class="primary-btn">add to cart</a>
                                                 </div>

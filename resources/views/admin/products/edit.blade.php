@@ -95,7 +95,6 @@
                           Ảnh đại diện
                         </span>
                         <input type="file" name="image" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" placeholder="Thêm giá sản phẩm" >
-
                         @error('image')
                         <span class="text-xs text-red-600" role="alert">
                             <strong>{{ $message }}</strong>
@@ -103,9 +102,39 @@
                         @enderror
                     </label>
                     <label class="block mt-4 text-sm">
-                        <div class="relative w-8 h-8 mr-3 rounded-full md:block">
-                            <img class="h-auto max-w-lg rounded-lg" src="{{ asset('storage/' . $product->image) }}" loading="lazy" alt="{{ $product->name }}">
-                            <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                        <div class="relative h-32 w-32 ...">
+                            <div class="absolute h-14 w-14 -left-4 -top-4 ...">
+                                <button @click="closeModal" class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700" aria-label="close">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
+                                        <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <img class="h-32 w-70" src="{{ asset('storage/' . $product->image) }}" loading="lazy">
+                        </div>
+                    </label>
+                    <label class="block mt-4 text-sm">
+                        <span class="text-gray-700 dark:text-gray-400">
+                          Ảnh phụ
+                        </span>
+                        <input  type="file" name="product_image[]" multiple class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input">
+                    </label>
+                    <label class="block mt-4 text-sm">
+                        <div class="flex flex-row">
+                            @foreach($product->productImages as $image)
+                                <div style="margin: 6px">
+                                    <div class="relative h-32 w-32 ...">
+                                        <div class="absolute h-14 w-14 -left-4 -top-4 ...">
+                                            <a href="{{ route('product.delete-image', ['id' => $image->id]) }}" @click="closeModal" class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700" aria-label="close">
+                                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
+                                                    <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <img class="h-32 w-70" src="{{ asset($image->image) }}" loading="lazy">
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </label>
 

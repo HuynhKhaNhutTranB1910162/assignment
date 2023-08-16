@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <ul class="filter__controls">
-                    <li class="active" data-filter="*">Dịch vụ</li>
+                   <a href="{{ route('client-service') }}"><li class="active" data-filter="*">Dịch vụ</li></a>
                 </ul>
             </div>
         </div>

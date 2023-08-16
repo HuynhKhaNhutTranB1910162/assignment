@@ -9,10 +9,12 @@ use Illuminate\View\View;
 
 class ServiceController extends Controller
 {
+    public int $itemPerPage = 2;
     public function index(): View
     {
         $categories = Category::all();
-        $services = Service::all();
+        $services = Service::orderByDesc('created_at')->paginate($this->itemPerPage);
+
         return view('client.service.index', compact('services', 'categories'));
     }
 
@@ -20,7 +22,6 @@ class ServiceController extends Controller
     {
         $categories = Category::all();
         $service = Service::getServiceById($id);
-        //        $services = Service::all();
 
         return view('client.service.detail', compact('categories', 'service'));
     }
