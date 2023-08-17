@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CartController extends Controller
@@ -14,7 +15,7 @@ class CartController extends Controller
     public function index(): View
     {
         $categories = Category::all();
-        $carts = Cart::all();
+        $carts = Cart::where('user_id', Auth::user()->id)->get();
 
         return view('client.cart.index', compact('categories', 'carts'));
     }
@@ -24,13 +25,14 @@ class CartController extends Controller
         $data = $request->validate([
             'qty' => ['nullable', 'int', 'min:1']
         ]);
-        $carts = Cart::getCartById($id);
+
+        $carts = Cart::getCartByUserId($id);
 
         $carts->update([
              'quantity' => $data['qty'],
          ]);
 
-        toastr()->success('Cap nhat so luong vào giỏ hàng thành công');
+        toastr()->success('Cập nhật số lượng vào giỏ hàng thành công');
 
         return redirect('cart');
     }
@@ -38,13 +40,13 @@ class CartController extends Controller
     public function destroy(string $id): RedirectResponse
     {
 
-        $carts = Cart::getCartById($id);
+        $carts = Cart::getCartByUserId($id);
 
         $carts->delete();
 
-        toastr()->success('Xóa thành công san pham');
+        toastr()->success('Xóa thành công sản phẩm');
 
-        return redirect('cart-product');
+        return redirect('cart');
     }
 
 }

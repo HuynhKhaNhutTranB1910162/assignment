@@ -13,23 +13,23 @@ class Cart extends Model
     use HasFactory;
 
     protected $fillable = [
-        'userId',
-        'productId',
+        'user_id',
+        'product_id',
         'quantity',
     ];
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'userId');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'productId');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
-    public static function getCartById(string $id): Model|Collection|Builder|array|null
+    public static function getCartByUserId(string $id): Model|Collection|Builder|array|null
     {
-        return Cart::query()->findOrFail($id);
+        return Cart::findOrFail($id);
     }
 }

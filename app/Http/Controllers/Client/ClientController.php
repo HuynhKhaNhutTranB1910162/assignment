@@ -20,5 +20,4 @@ class ClientController extends Controller
 
         return view('client.home.home', compact('banners', 'categories', 'services', 'servicePackages'));
     }
-
 }

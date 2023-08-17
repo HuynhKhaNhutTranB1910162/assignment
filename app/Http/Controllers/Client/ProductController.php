@@ -42,7 +42,7 @@ class ProductController extends Controller
             return redirect('login');
         }
 
-        if (Cart::where('userId', Auth::user()->id)->where('productId', $productId)->exists()) {
+        if (Cart::where('user_id', Auth::user()->id)->where('product_id', $productId)->exists()) {
             toastr()->warning('Sản phẩm đã có trong giỏ hàng.');
             return redirect()->back();
         }
@@ -51,8 +51,8 @@ class ProductController extends Controller
 
         if ($data['qty']) {
             Cart::create([
-                'userId' => Auth::id(),
-                'productId' => $productId,
+                'user_id' => Auth::id(),
+                'product_id' => $productId,
                 'quantity' => $data['qty'],
             ]);
 
@@ -62,8 +62,8 @@ class ProductController extends Controller
         }
 
         Cart::create([
-            'userId' => Auth::id(),
-            'productId' => $productId,
+            'user_id' => Auth::id(),
+            'product_id' => $productId,
             'quantity' => 1,
         ]);
 

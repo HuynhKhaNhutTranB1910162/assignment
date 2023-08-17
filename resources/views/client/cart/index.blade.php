@@ -32,7 +32,6 @@
                             </tr>
                             </thead>
                             <tbody>
-
                             @foreach($carts as $item)
                             <tr>
                                 <form action="{{ route('cart.update', ['id' => $item->id]) }}" method="POST" id="update-qty">
