@@ -13,34 +13,46 @@
                         </div>
                     </div>
                 </div>
-                <form action="{{ route('product-detail',['id' => $product->id]) }}" method="POST">
+                <form action="{{ route('cart.addToCart', ['id' => $product->id]) }}" method="POST" id="addcart">
                     @csrf
+
                     <div class="product__details__content">
                         <div class="container">
                             <div class="row">
-                                <div class="col-lg-2">
+                                <div class="col-lg-2 col-md-3">
                                     <ul class="nav nav-tabs" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">
+                                            <a class="nav-link active" data-toggle="tab" href="#tabs" role="tab">
                                                 <div class="product__thumb__pic set-bg" data-setbg="{{ asset('storage/' . $product->image) }}">
                                                 </div>
                                             </a>
                                         </li>
-                                        @foreach($product->productImages as $image)
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">
-                                                <div class="product__thumb__pic set-bg" data-setbg="{{ asset($image->image) }}">
-                                                </div>
-                                            </a>
-                                        </li>
+                                        @foreach($product->productImages as $key => $image)
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#tabs-{{ $key }}" role="tab">
+                                                    <div class="product__thumb__pic set-bg" data-setbg="{{ asset($image->image) }}">
+                                                    </div>
+                                                </a>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                                        <div class="product__details__pic__item">
-                                            <img src="{{ asset('storage/' . $product->image) }}" alt="">
+                                <div class="col-lg-4 col-md-9">
+                                    <div class="tab-content">
+
+                                        <div class="tab-pane active" id="tabs" role="tabpanel">
+                                            <div class="product__details__pic__item">
+                                                <img src="{{ asset('storage/' . $product->image) }}" alt="">
+                                            </div>
                                         </div>
+
+                                        @foreach($product->productImages as $key => $image)
+                                            <div class="tab-pane" id="tabs-{{ $key }}" role="tabpanel">
+                                                <div class="product__details__pic__item">
+                                                    <img src="{{ asset($image->image) }}" alt="">
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -64,11 +76,16 @@
                                                     <div class="quantity">
                                                         <div class="pro-qty">
                                                             <span onclick="incQuantity" class="fa fa-angle-up dec qtybtn"></span>
-                                                            <input type="text" value="1">
+                                                            <input id="qty" name="qty" value="1" min="1" class="form-control bg-light text-center">
+
+                                                            @error('qty')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+
                                                             <span onclick="decQuantity" class="fa fa-angle-down inc qtybtn"></span>
                                                         </div>
                                                     </div>
-                                                    <a href="#" class="primary-btn">add to cart</a>
+                                                    <a href="{{ route('cart.addToCart', ['id' => $product->id]) }}" class="primary-btn" onclick="event.preventDefault(); document.getElementById('addcart').submit();">add to cart</a>
                                                 </div>
                                                 <div class="product__details__last__option">
                                                     <ul>
@@ -85,6 +102,8 @@
                     </div>
                 </form>
             </div>
+
+        </div>
         </div>
         <div class="row d-flex justify-content-center">
             <div class="col-lg-8">
@@ -158,5 +177,4 @@
         </div>
     </section>
     <!-- Related Section End -->
-
 @endsection

@@ -32,26 +32,38 @@
                             </tr>
                             </thead>
                             <tbody>
+
+                            @foreach($carts as $item)
                             <tr>
-                                <td class="product__cart__item">
-                                    <div class="product__cart__item__pic">
-                                        <img src="{{asset('client/img/shopping-cart/cart-1.jpg')}}" alt="">
-                                    </div>
-                                    <div class="product__cart__item__text">
-                                        <h6>T-shirt Contrast Pocket</h6>
-                                        <h5>$98.49</h5>
-                                    </div>
-                                </td>
-                                <td class="quantity__item">
-                                    <div class="quantity">
-                                        <div class="pro-qty-2">
-                                            <input type="text" value="1">
+                                <form action="{{ route('cart.update', ['id' => $item->id]) }}" method="POST" id="update-qty">
+                                    @csrf
+                                    @method('PUT')
+                                    <td class="product__cart__item">
+                                        <div class="product__cart__item__pic">
+                                            <img width="100px" height="100px" src="{{ asset('storage/' . $item->product->image) }}" alt="">
                                         </div>
-                                    </div>
+                                        <div class="product__cart__item__text">
+                                            <h6>{{ $item->product->name }}</h6>
+                                            <h5>{{ $item->product->category->name }}</h5>
+                                        </div>
+                                    </td>
+                                    <td class="quantity__item">
+                                        <div class="quantity">
+                                            <div class="pro-qty-2">
+                                                <input id="qty" name="qty" value="{{$item->quantity}}">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="cart__price">{{ CurrencyHelper::format($item->product->original_price) }}</td>
+                                <td class="cart__close">
+                                    <a href="{{ route('cart.delete', ['id' => $item->id]) }}">
+                                        <i class="fa fa-close"></i>
+                                    </a>
                                 </td>
-                                <td class="cart__price">$ 30.00</td>
-                                <td class="cart__close"><i class="fa fa-close"></i></td>
+                                </form>
                             </tr>
+                            @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -63,7 +75,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn update__btn">
-                                <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
+                                <a href="{{ route('cart-product') }}" onclick="event.preventDefault(); document.getElementById('update-qty').submit();"><i class="fa fa-spinner"></i> Update cart</a>
                             </div>
                         </div>
                     </div>

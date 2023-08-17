@@ -38,7 +38,11 @@ Route::get('/shop', [ClientProductController::class,'index'])->name('shop');
 Route::get('/product/{id}', [ClientProductController::class,'showDetail'])->name('product-detail');
 Route::get('/client-service', [ClientServiceController::class,'index'])->name('client-service');
 Route::get('/service/{id}', [ClientServiceController::class,'showDetail'])->name('service-detail');
-Route::get('/cart-product', [ClientCartController::class,'index'])->name('cart-product');
+
+Route::get('/cart', [ClientCartController::class,'index'])->name('cart-product');
+Route::post('/cart/{id}', [ClientProductController::class,'addToCart'])->name('cart.addToCart');
+Route::put('/cart-update/{id}', [ClientCartController::class,'update'])->name('cart.update');
+Route::get('/cart-delete/{id}', [ClientCartController::class,'destroy'])->name('cart.delete');
 //end Client
 
 Auth::routes(['verify' => true]);
