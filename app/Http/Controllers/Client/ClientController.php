@@ -15,7 +15,7 @@ class ClientController extends Controller
     {
         $banners = Banner::all();
         $categories = Category::all();
-        $services = Service::all();
+        $services = Service::all()->take(4);
         $servicePackages = ServicePackage::all();
 
         return view('client.home.home', compact('banners', 'categories', 'services', 'servicePackages'));

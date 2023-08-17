@@ -10,7 +10,7 @@ return new class () extends Migration {
         Schema::create('product_images', function (Blueprint $table) {
             $table->id();
             $table->string('image');
-            $table->string('product_id');
+            $table->integer('product_id');
             $table->timestamps();
         });
     }

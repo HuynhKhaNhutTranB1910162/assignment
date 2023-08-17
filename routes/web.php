@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ServicePackageController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ServiceController as ClientServiceController;
+use App\Http\Controllers\Client\CartController as ClientCartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,7 @@ Route::get('/shop', [ClientProductController::class,'index'])->name('shop');
 Route::get('/product/{id}', [ClientProductController::class,'showDetail'])->name('product-detail');
 Route::get('/client-service', [ClientServiceController::class,'index'])->name('client-service');
 Route::get('/service/{id}', [ClientServiceController::class,'showDetail'])->name('service-detail');
-
+Route::get('/cart-product', [ClientCartController::class,'index'])->name('cart-product');
 //end Client
 
 Auth::routes(['verify' => true]);
@@ -61,6 +62,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/edit-products/{id}', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/update-products/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::get('/delete-products/{id}', [ProductController::class, 'destroy'])->name('products.delete');
+    Route::get('delete-product-image/{id}', [ProductController::class ,'deleteProductImage'])->name('product.delete-image');
 
     Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::get('/create-users', [UserController::class, 'create'])->name('users.create');
