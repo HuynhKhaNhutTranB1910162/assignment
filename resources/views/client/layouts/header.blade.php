@@ -54,8 +54,8 @@
                 <div class="header__nav__option">
                     <a href="#" class="search-switch"><img src="{{asset('client/img/icon/search.png')}}" alt=""></a>
                     <a href="#"><img src="{{asset('client/img/icon/heart.png')}}" alt=""></a>
-                    <a href="{{ route('cart-product') }}"><img src="{{asset('client/img/icon/cart.png')}}" alt=""> <span>{{!is_null(\App\Models\Cart::where('user_id', Auth::user()->id)->get())
-                                                                                                                                ? count(\App\Models\Cart::where('user_id', Auth::user()->id)->get()) : 0 }}</span></a>
+                    <a href="{{ route('cart-product') }}"><img src="{{asset('client/img/icon/cart.png')}}" alt=""> <span>{{!is_null(\App\Models\Cart::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->get())
+                                                                                                                                ? count(\App\Models\Cart::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->get()) : 0 }}</span></a>
                 </div>
             </div>
         </div>

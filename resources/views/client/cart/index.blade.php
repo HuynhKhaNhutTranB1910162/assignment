@@ -83,8 +83,7 @@
                     <div class="cart__total">
                         <h6>Thanh Toán</h6>
                         <ul>
-                            <li>Subtotal <span>$ 169.50</span></li>
-                            <li>Tổng tiền <span>$ 169.50</span></li>
+                            <li>Tổng tiền <span></span></li>
                         </ul>
                         <a href="#" class="primary-btn">Đặt hàng</a>
                     </div>

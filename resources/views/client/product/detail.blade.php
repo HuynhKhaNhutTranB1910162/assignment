@@ -15,7 +15,6 @@
                 </div>
                 <form action="{{ route('cart.addToCart', ['id' => $product->id]) }}" method="POST" id="addcart">
                     @csrf
-
                     <div class="product__details__content">
                         <div class="container">
                             <div class="row">

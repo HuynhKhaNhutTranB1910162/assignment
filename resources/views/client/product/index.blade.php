@@ -73,6 +73,8 @@
                 <div class="row">
                     @foreach($products as $product)
                         <div class="col-lg-4 col-md-6 col-sm-6">
+                            <form action="{{ route('cart.addToCart', ['id' => $product->id]) }}" method="POST" id="addcart">
+                                @csrf
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="{{ asset('storage/' . $product->image) }}">
                                     <ul class="product__hover">
@@ -82,7 +84,7 @@
                                 </div>
                                 <div class="product__item__text">
                                     <h6>{{$product->name}}</h6>
-{{--                                    <a href="{{ route('cart.addToCart', ['id' => $product->id]) }}" class="add-cart">+ Add To Cart</a>--}}
+                                    <a href="{{ route('cart.addToCart', ['id' => $product->id]) }}" class="add-cart" onclick="event.preventDefault(); document.getElementById('addcart').submit();">+ Add To Cart</a>
                                     <div class="rating">
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
@@ -93,6 +95,7 @@
                                     <h5>{{ CurrencyHelper::format($product->original_price) }}</h5>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     @endforeach
                 </div>

@@ -15,8 +15,11 @@ class CartController extends Controller
     public function index(): View
     {
         $categories = Category::all();
+        if (! Auth::check()) {
+            toastr()->warning('Đăng nhập trước khi sử dụng dịch vụ');
+            return redirect('login');
+        }
         $carts = Cart::where('user_id', Auth::user()->id)->get();
-
         return view('client.cart.index', compact('categories', 'carts'));
     }
 
