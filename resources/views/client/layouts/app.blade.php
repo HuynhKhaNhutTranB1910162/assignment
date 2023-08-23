@@ -22,6 +22,10 @@
     <link rel="stylesheet" href="{{ asset('client/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('client/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('client/css/style.css') }}" type="text/css">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+
 </head>
 
 <body>
@@ -63,6 +67,7 @@
 <script src="{{ asset('client/js/mixitup.min.js') }}"></script>
 <script src="{{ asset('client/js/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('client/js/main.js') }}"></script>
+@yield('scripts')
 </body>
 
 </html>
