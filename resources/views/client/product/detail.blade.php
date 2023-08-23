@@ -68,7 +68,8 @@
                                                     <i class="fa fa-star-o"></i>
                                                     <span> - 5 Reviews</span>
                                                 </div>
-                                                <h3>{{ CurrencyHelper::format($product->original_price) }} <span>{{ CurrencyHelper::format($product->selling_price) }}</span></h3>
+                                                <h3>{{!is_null(CurrencyHelper::format($product->selling_price)) ? CurrencyHelper::format($product->selling_price) : CurrencyHelper::format($product->original_price) }}
+                                                  @if(!is_null(CurrencyHelper::format($product->selling_price))) <span>{{ CurrencyHelper::format($product->original_price) }}</span> @endif  </h3>
                                                 <div class="product__details__btns__option">
                                                     <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
                                                 </div>

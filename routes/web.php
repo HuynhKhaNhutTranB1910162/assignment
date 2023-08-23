@@ -41,7 +41,7 @@ Route::get('/service/{id}', [ClientServiceController::class,'showDetail'])->name
 
 Route::get('/cart', [ClientCartController::class,'index'])->name('cart-product');
 Route::post('/cart/{id}', [ClientProductController::class,'addToCart'])->name('cart.addToCart');
-Route::put('/cart-update/{id}', [ClientCartController::class,'update'])->name('cart.update');
+Route::put('/cart-update', [ClientCartController::class,'update'])->name('cart.update');
 Route::get('/cart-delete/{id}', [ClientCartController::class,'destroy'])->name('cart.delete');
 //end Client
 
