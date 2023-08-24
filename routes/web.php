@@ -14,6 +14,8 @@ use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ServiceController as ClientServiceController;
 use App\Http\Controllers\Client\CartController as ClientCartController;
+use App\Http\Controllers\Client\OrderController as  ClientOrderController;
+use App\Http\Controllers\Client\ProfileController as  ClientProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +45,10 @@ Route::get('/cart', [ClientCartController::class,'index'])->name('cart-product')
 Route::post('/cart/{id}', [ClientProductController::class,'addToCart'])->name('cart.addToCart');
 Route::put('/cart-update', [ClientCartController::class,'update'])->name('cart.update');
 Route::get('/cart-delete/{id}', [ClientCartController::class,'destroy'])->name('cart.delete');
+
+Route::get('/order', [ClientOrderController::class,'index'])->name('order-product');
+
+Route::get('/profile', [ClientProfileController::class,'index'])->name('order-product');
 //end Client
 
 Auth::routes(['verify' => true]);

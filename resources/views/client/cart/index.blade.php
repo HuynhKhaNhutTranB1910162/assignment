@@ -55,23 +55,16 @@
                                                     <h6>{{ $item->product->category->name }}</h6>
                                                 </div>
                                             </td>
-{{--                                        <td class="quantity__item">--}}
-{{--                                            <div class="quantity">--}}
-{{--                                                <div class="pro-qty-2"><span class="fa fa-angle-left dec qtybtn"></span>--}}
-{{--                                                    <input type="text" value="1">--}}
-{{--                                                    <span class="fa fa-angle-right inc qtybtn"></span></div>--}}
-{{--                                            </div>--}}
-{{--                                        </td>--}}
                                             <td class="quantity__item">
                                                 @if($item->product->stock > $item->quantity)
                                                     <div class="quantity">
                                                         <div class="row">
-                                                        <div class="input-group-prepend">
-                                                            <button data-dec-product-id="{{ $item->id }}" id="decrease" class="decrease btn btn-outline-primary" type="button">&minus;</button>
+                                                        <div class="d-flex mr-1" style="max-width: 300px">
+                                                            <button data-dec-product-id="{{ $item->id }}" id="decrease" class="decrease btn btn-outline-warning px-3 me-2" type="button"> <i class="bi bi-dash"></i>&minus;</button>
                                                         </div>
-                                                        <input type="text" class="text-center p-2" style="width: 60px" name="quantity" value="{{ $item->quantity }}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                                                        <div class="input-group-append">
-                                                            <button data-inc-product-id="{{ $item->id }}" id="increase" class="increase btn btn-outline-primary" type="button">&plus;</button>
+                                                        <input type="text"  class="form-control text-center" style="width: 60px" name="quantity" value="{{ $item->quantity }}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                                        <div class="d-flex ml-1">
+                                                            <button data-inc-product-id="{{ $item->id }}" id="increase" class="increase btn btn-outline-warning px-3 me-2" type="button"> <i class="bi bi-plus"></i>&plus;</button>
                                                         </div>
                                                         </div>
                                                 </div>
@@ -97,11 +90,6 @@
                                     <a href="{{ route('shop') }}">Xem sản phẩm</a>
                                 </div>
                             </div>
-{{--                            <div class="col-lg-6 col-md-6 col-sm-6">--}}
-{{--                                <div class="continue__btn update__btn">--}}
-{{--                                    <a href="{{ route('cart-product') }}" onclick="event.preventDefault(); document.getElementById('update-qty').submit();"><i class="fa fa-spinner"></i> Update cart</a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                         </div>
                     </div>
                     <div class="col-lg-4">
