@@ -97,11 +97,6 @@
                                     <a href="{{ route('shop') }}">Xem sản phẩm</a>
                                 </div>
                             </div>
-{{--                            <div class="col-lg-6 col-md-6 col-sm-6">--}}
-{{--                                <div class="continue__btn update__btn">--}}
-{{--                                    <a href="{{ route('cart-product') }}" onclick="event.preventDefault(); document.getElementById('update-qty').submit();"><i class="fa fa-spinner"></i> Update cart</a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                         </div>
                     </div>
                     <div class="col-lg-4">

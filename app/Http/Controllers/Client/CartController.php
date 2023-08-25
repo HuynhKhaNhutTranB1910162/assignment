@@ -16,7 +16,7 @@ class CartController extends Controller
     public function index(): View
     {
         $categories = Category::all();
-        if (Auth::check()){
+        if (Auth::check()) {
             $carts = Cart::where('user_id', Auth::user()->id)->get();
             return view('client.cart.index', compact('categories', 'carts'));
         }
@@ -25,10 +25,11 @@ class CartController extends Controller
     }
 
     public function update(Request $request): JsonResponse
-    { $data = $request->validate([
-        'id' => ['required', 'integer'],
-        'type' => ['required', 'in:inc,dec'],
-    ]);
+    {
+        $data = $request->validate([
+            'id' => ['required', 'integer'],
+            'type' => ['required', 'in:inc,dec'],
+        ]);
 
         $product = Cart::find($data['id']);
 
@@ -69,9 +70,9 @@ class CartController extends Controller
             'data' => 'Delete product success!',
         ]);
 
-//        toastr()->success('Cập nhật số lượng vào giỏ hàng thành công');
-//
-//        return redirect('cart');
+        //        toastr()->success('Cập nhật số lượng vào giỏ hàng thành công');
+        //
+        //        return redirect('cart');
     }
 
     public function destroy(string $id): RedirectResponse

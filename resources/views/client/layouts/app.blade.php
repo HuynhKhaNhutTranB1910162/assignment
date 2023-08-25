@@ -7,6 +7,7 @@
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Male-Fashion | Template</title>
 
     <!-- Google Font -->
@@ -22,8 +23,9 @@
     <link rel="stylesheet" href="{{ asset('client/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('client/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('client/css/style.css') }}" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    @livewireStyles
 
 
 </head>
@@ -59,7 +61,6 @@
 <!-- Js Plugins -->
 <script src="{{ asset('client/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ asset('client/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('client/js/jquery.nice-select.min.js') }}"></script>
 <script src="{{ asset('client/js/jquery.nicescroll.min.js') }}"></script>
 <script src="{{ asset('client/js/jquery.magnific-popup.min.js/') }}"></script>
 <script src="{{ asset('client/js/jquery.countdown.min.js') }}"></script>
@@ -67,7 +68,9 @@
 <script src="{{ asset('client/js/mixitup.min.js') }}"></script>
 <script src="{{ asset('client/js/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('client/js/main.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @yield('scripts')
+@livewireScripts
 </body>
 
 </html>

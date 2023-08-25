@@ -14,17 +14,7 @@ use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ServiceController as ClientServiceController;
 use App\Http\Controllers\Client\CartController as ClientCartController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\Client\ProfileController as ClientProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,6 +33,9 @@ Route::get('/cart', [ClientCartController::class,'index'])->name('cart-product')
 Route::post('/cart/{id}', [ClientProductController::class,'addToCart'])->name('cart.addToCart');
 Route::put('/cart-update', [ClientCartController::class,'update'])->name('cart.update');
 Route::get('/cart-delete/{id}', [ClientCartController::class,'destroy'])->name('cart.delete');
+
+Route::get('/user-profile', [ClientProfileController::class,'index'])->name('profile');
+Route::get('/user-profile-delete/{id}', [ClientProfileController::class,'destroy'])->name('profile.delete');
 //end Client
 
 Auth::routes(['verify' => true]);

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Ward extends Model
 {
@@ -13,12 +15,12 @@ class Ward extends Model
         'district_id',
     ];
 
-    public function district()
+    public function district(): BelongsTo
     {
         return $this->belongsTo(District::class);
     }
 
-    public function addresses(): hasMany
+    public function addresses(): HasMany
     {
         return $this->hasMany(Address::class);
     }
