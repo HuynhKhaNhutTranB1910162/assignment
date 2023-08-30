@@ -40,19 +40,27 @@ class Location extends Component
     public function addNew()
     {
         $validatedData = $this->validate();
+        if (Auth::user()->addresses()->count() < 3){
+            Address::create([
+                'user_id' => Auth::user()->id,
+                'user_name' => $validatedData['userName'],
+                'address' => $validatedData['address'],
+                'province_id' => $validatedData['provinceId'],
+                'district_id' => $validatedData['districtId'],
+                'ward_id' => $validatedData['wardId'],
+            ]);
 
-        Address::create([
-            'user_id' => Auth::user()->id,
-            'user_name' => $validatedData['userName'],
-            'address' => $validatedData['address'],
-            'province_id' => $validatedData['provinceId'],
-            'district_id' => $validatedData['districtId'],
-            'ward_id' => $validatedData['wardId'],
-        ]);
+            toastr()->success('thêm địa chỉ thành công');
 
-        toastr()->success('thêm địa chỉ thành công');
+            return redirect()->route('profile');
+        }
+        else
+        {
+            toastr()->warning('Dịa chỉ khong dc qua 3');
 
-        return redirect()->route('profile');
+            return redirect()->route('profile');
+        }
+
     }
 
     public function render()

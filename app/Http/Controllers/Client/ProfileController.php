@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
+use App\Models\Cart;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +15,11 @@ class ProfileController extends Controller
     public function index(): View
     {
         $categories = Category::all();
-        $addresses = Address::where('user_id', Auth::user()->id)->get();
-        return view('client.profile.index', compact('categories', 'addresses'));
+        if (Auth::check()) {
+            $addresses = Address::where('user_id', Auth::user()->id)->get();
+            return view('client.profile.index', compact('categories', 'addresses'));
+        }
+        return view('client.profile.index', compact('categories'));
     }
 
     public function destroy(string $id): RedirectResponse

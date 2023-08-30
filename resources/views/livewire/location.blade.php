@@ -9,8 +9,8 @@
             <div class="col-lg-4">
                 <div class="checkout__input">
                     <p>Chọn thành phố<span>*</span></p>
-                    <select wire:model.live="provinceId" class="choose" >
-                        <option >Chọn thành phố</option>
+                    <select wire:model.live="provinceId" class="form-control" >
+                        <option value="">Chọn thành phố</option>
                         @foreach($provinces as $province)
                             <option value="{{ $province->id }}">{{ $province->name }}</option>
                         @endforeach
@@ -21,8 +21,8 @@
             <div class="col-lg-4">
                 <div class="checkout__input">
                     <p>Chọn Quận huyện<span>*</span></p>
-                    <select wire:model.live="districtId"  class="choose" aria-label=".form-select-sm">
-                        <option >Chọn Quận huyện</option>
+                    <select wire:model.live="districtId"  class="form-control" aria-label=".form-select-sm">
+                        <option value="">Chọn Quận huyện</option>
                         @foreach($districts as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
@@ -33,8 +33,8 @@
             <div class="col-lg-4">
                 <div class="checkout__input">
                     <p>Chọn xã phường<span>*</span></p>
-                    <select  wire:model.live="wardId" id="ward" class="choose" aria-label=".form-select-sm">
-                        <option >Chọn xã phường</option>
+                    <select  wire:model.live="wardId" id="ward" class="form-control" aria-label=".form-select-sm">
+                        <option value="">Chọn xã phường</option>
                         @foreach($wards as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
@@ -53,3 +53,4 @@
         </div>
     </form>
 </div>
+

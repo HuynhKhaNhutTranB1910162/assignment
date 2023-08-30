@@ -16,11 +16,10 @@
             </div>
         </div>
     </section>
-
-    <section class="checkout spad">
-        <div class="container">
-            <div class="checkout__form">
-
+    @if(Auth::check())
+        <section class="checkout spad">
+            <div class="container">
+                <div class="checkout__form">
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <div class="shopping__cart__table">
@@ -47,10 +46,10 @@
                                 </table>
                             </div>
                             <h6 class="checkout__title">Địa chỉ khách hàng</h6>
-                          <div>
-                              <livewire:location>
-                              </livewire:location>
-                          </div>
+                            <div>
+                                <livewire:location>
+                                </livewire:location>
+                            </div>
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
@@ -61,17 +60,20 @@
 
                                 </div>
                                 <ul class="checkout__total__all">
-                                    <li>Tên khách hàng <span></span></li>
-                                    <li>Email <span></span></li>
-                                    <li>Số điện thoại <span></span></li>
+                                    <li>Tên khách hàng <span>{{ Auth::user()->name }}</span></li>
+                                    <li>Email <span>{{ Auth::user()->email }}</span></li>
+                                    <li>Số điện thoại <span>{{ Auth::user()->phone }}</span></li>
                                 </ul>
-                                <button type="submit" class="site-btn">Cập nhật thông tin</button>
+                                <a href="{{ route('client') }}"><button class="site-btn">Cập nhật thông tin</button></a>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 @endsection
+
+
 
 

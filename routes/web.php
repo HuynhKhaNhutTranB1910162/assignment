@@ -15,6 +15,8 @@ use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ServiceController as ClientServiceController;
 use App\Http\Controllers\Client\CartController as ClientCartController;
 use App\Http\Controllers\Client\ProfileController as ClientProfileController;
+use \App\Http\Controllers\Client\OrderController as ClientOrderController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,6 +38,8 @@ Route::get('/cart-delete/{id}', [ClientCartController::class,'destroy'])->name('
 
 Route::get('/user-profile', [ClientProfileController::class,'index'])->name('profile');
 Route::get('/user-profile-delete/{id}', [ClientProfileController::class,'destroy'])->name('profile.delete');
+
+Route::get('/order', [ClientOrderController::class,'index'])->name('order');
 
 //end Client
 
