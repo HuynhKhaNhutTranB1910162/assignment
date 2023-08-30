@@ -20,7 +20,7 @@
                                     Đăng xuất
                                 </a>
                             @endif
-                            <a href="#">FAQs</a>
+                            <a href="{{ route('profile') }}">Profile</a>
                         </div>
                         <div class="header__top__hover">
                             <span>Usd <i class="arrow_carrot-down"></i></span>

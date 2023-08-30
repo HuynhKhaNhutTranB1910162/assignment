@@ -1,8 +1,9 @@
 <div>
     <form wire:submit.prevent="addNew">
         <div class="checkout__input">
-            <p>Số nhà</p>
-            <input wire:model="houseNumber" type="text" placeholder="Street Address" class="checkout__input__add">
+            <p>Tên Khách hàng</p>
+            <input wire:model="userName" type="text" placeholder="Street Address" class="checkout__input__add">
+            @error('userName') <span style="color: red;" class="error">{{ $message }}</span> @enderror
         </div>
         <div class="row">
             <div class="col-lg-4">
@@ -14,12 +15,8 @@
                             <option value="{{ $province->id }}">{{ $province->name }}</option>
                         @endforeach
                     </select>
-                    @error('provinceId')
-                    <span class="text-danger">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
                 </div>
+                @error('provinceId') <span style="color: red;" class="error">{{ $message }}</span> @enderror
             </div>
             <div class="col-lg-4">
                 <div class="checkout__input">
@@ -30,12 +27,8 @@
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
-                    @error('districtId')
-                    <span class="text-danger">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
                 </div>
+                @error('districtId') <span style="color: red;" class="error">{{ $message }}</span> @enderror
             </div>
             <div class="col-lg-4">
                 <div class="checkout__input">
@@ -46,21 +39,17 @@
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
-                    @error('wardId')
-                    <span class="text-danger">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
                 </div>
+                @error('wardId') <span style="color: red;" class="error">{{ $message }}</span> @enderror
             </div>
         </div>
         <div class="checkout__input">
-            <p>Địa chỉ</p>
+            <p>Địa chỉ cụ thể</p>
             <input wire:model="address" type="text" placeholder="Street Address" class="checkout__input__add">
+            @error('address') <span style="color: red;" class="error">{{ $message }}</span> @enderror
         </div>
         <div>
             <button type="submit" class="site-btn">Thêm địa chỉ</button>
         </div>
     </form>
-
 </div>

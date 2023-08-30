@@ -17,21 +17,42 @@ class Location extends Component
     public $districts = [];
     public $wards = [];
     public $address;
-    public $houseNumber;
+    public $userName;
+
+    protected $rules = [
+        'userName' => 'required|string|max:36',
+        'address' => 'required|string|max:255',
+        'provinceId' => 'required',
+        'districtId' => 'required',
+        'wardId' => 'required',
+    ];
+
+    protected $messages = [
+        'userName.required' => 'Vui lòng nhập họ tên.',
+        'userName.max:36' => 'Họ tên không vượt quá 36 kí tự',
+        'address.required' => 'Vui lòng nhập địa chỉ cụ thể.',
+        'address.max:255' => 'Địa chỉ cụ thể không vượt quá 255 kí tự',
+        'provinceId.required' => 'Vui lòng chọn tỉnh thành phố.',
+        'districtId.required' => 'Vui lòng nhập huyện.',
+        'wardId.required' => 'Vui lòng chọn xã phường.',
+    ];
 
     public function addNew()
     {
+        $validatedData = $this->validate();
+
         Address::create([
             'user_id' => Auth::user()->id,
-            'house_number' => $this->houseNumber,
-            'address' => $this->address,
-            'province_id' => $this->provinceId,
-            'district_id' => $this->districtId,
-            'ward_id' => $this->wardId,
+            'user_name' => $validatedData['userName'],
+            'address' => $validatedData['address'],
+            'province_id' => $validatedData['provinceId'],
+            'district_id' => $validatedData['districtId'],
+            'ward_id' => $validatedData['wardId'],
         ]);
+
         toastr()->success('thêm địa chỉ thành công');
 
-        $this->reset();
+        return redirect()->route('profile');
     }
 
     public function render()

@@ -55,13 +55,6 @@
                                                     <h6>{{ $item->product->category->name }}</h6>
                                                 </div>
                                             </td>
-{{--                                        <td class="quantity__item">--}}
-{{--                                            <div class="quantity">--}}
-{{--                                                <div class="pro-qty-2"><span class="fa fa-angle-left dec qtybtn"></span>--}}
-{{--                                                    <input type="text" value="1">--}}
-{{--                                                    <span class="fa fa-angle-right inc qtybtn"></span></div>--}}
-{{--                                            </div>--}}
-{{--                                        </td>--}}
                                             <td class="quantity__item">
                                                 @if($item->product->stock > $item->quantity)
                                                     <div class="quantity">

@@ -36,6 +36,7 @@ Route::get('/cart-delete/{id}', [ClientCartController::class,'destroy'])->name('
 
 Route::get('/user-profile', [ClientProfileController::class,'index'])->name('profile');
 Route::get('/user-profile-delete/{id}', [ClientProfileController::class,'destroy'])->name('profile.delete');
+
 //end Client
 
 Auth::routes(['verify' => true]);

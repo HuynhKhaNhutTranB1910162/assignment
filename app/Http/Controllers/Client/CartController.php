@@ -69,10 +69,6 @@ class CartController extends Controller
             'message' => 'success',
             'data' => 'Delete product success!',
         ]);
-
-        //        toastr()->success('Cập nhật số lượng vào giỏ hàng thành công');
-        //
-        //        return redirect('cart');
     }
 
     public function destroy(string $id): RedirectResponse

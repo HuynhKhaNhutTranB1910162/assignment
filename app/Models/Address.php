@@ -12,7 +12,7 @@ class Address extends Model
     protected $table = 'addresses';
 
     protected $fillable = [
-        'house_number',
+        'user_name',
         'address',
         'user_id',
         'ward_id',
@@ -20,12 +20,12 @@ class Address extends Model
         'province_id',
     ];
 
-    public function user(): belongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function ward(): belongsTo
+    public function ward(): BelongsTo
     {
         return $this->belongsTo(Ward::class);
     }
