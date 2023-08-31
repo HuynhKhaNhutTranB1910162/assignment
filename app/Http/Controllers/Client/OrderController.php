@@ -17,9 +17,8 @@ class OrderController extends Controller
         if (Auth::check()) {
             $order = Order::where('user_id', Auth::user()->id)->get();
             $addresses = Address::where('user_id', Auth::user()->id)->get();
-            return view('client.order.index', compact('categories', 'order','addresses'));
+            return view('client.order.index', compact('categories', 'order', 'addresses'));
         }
         return view('client.order.index', compact('categories'));
-
     }
 }

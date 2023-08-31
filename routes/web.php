@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 //Client
 Route::get('/', [ClientController::class,'index'])->name('client');
-Route::get('/category', [ClientController::class,'showcategory']);
 Route::get('/shop', [ClientProductController::class,'index'])->name('shop');
 Route::get('/product/{id}', [ClientProductController::class,'showDetail'])->name('product-detail');
 Route::get('/client-service', [ClientServiceController::class,'index'])->name('client-service');
@@ -39,8 +38,6 @@ Route::get('auth/{provider}/redirect', [GoogleLoginController::class, 'redirect'
 Route::get('auth/{provider}/callback', [GoogleLoginController::class, 'callback'])->name('socialite.callback');
 
 Auth::routes(['verify' => true]);
-
-Route::get('/home', [\App\Http\Controllers\Client\HomeController::class, 'index'])->name('home')->middleware(['auth', 'verified']);
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
 

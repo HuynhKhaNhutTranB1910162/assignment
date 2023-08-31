@@ -29,7 +29,7 @@ class CategoryController extends Controller
     {
         $data = $request->validated();
 
-        $category =Category::query()->create([
+        $category = Category::query()->create([
                 'name' => $data['name'],
             ]);
         toastr()->success('Thêm mới danh mục thành công');

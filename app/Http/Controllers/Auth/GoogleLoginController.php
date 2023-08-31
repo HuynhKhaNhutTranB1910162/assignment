@@ -28,7 +28,7 @@ class GoogleLoginController extends Controller
             ], [
                 'email' => $socialAccount->getEmail(),
                 'name' => $socialAccount->getName(),
-                'provider_id'=> $socialAccount->getId(),
+                'provider_id' => $socialAccount->getId(),
                 'is_admin' => 0,
                 'image' => $socialAccount->getAvatar(),
                 'phone' => fake()->phoneNumber(),

@@ -40,7 +40,7 @@ class Location extends Component
     public function addNew()
     {
         $validatedData = $this->validate();
-        if (Auth::user()->addresses()->count() < 3){
+        if (Auth::user()->addresses()->count() < 3) {
             Address::create([
                 'user_id' => Auth::user()->id,
                 'user_name' => $validatedData['userName'],
@@ -53,9 +53,7 @@ class Location extends Component
             toastr()->success('thêm địa chỉ thành công');
 
             return redirect()->route('profile');
-        }
-        else
-        {
+        } else {
             toastr()->warning('Địa chỉ không được thêm quá 3');
 
             return redirect()->route('profile');
