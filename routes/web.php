@@ -15,17 +15,9 @@ use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ServiceController as ClientServiceController;
 use App\Http\Controllers\Client\CartController as ClientCartController;
 use App\Http\Controllers\GoogleLoginController;
+use App\Http\Controllers\Client\ProfileController as ClientProfileController;
+use \App\Http\Controllers\Client\OrderController as ClientOrderController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,9 +37,13 @@ Route::post('/cart/{id}', [ClientProductController::class,'addToCart'])->name('c
 Route::put('/cart-update', [ClientCartController::class,'update'])->name('cart.update');
 Route::get('/cart-delete/{id}', [ClientCartController::class,'destroy'])->name('cart.delete');
 
+Route::get('/user-profile', [ClientProfileController::class,'index'])->name('profile');
+Route::get('/user-profile-delete/{id}', [ClientProfileController::class,'destroy'])->name('profile.delete');
+
+Route::get('/order', [ClientOrderController::class,'index'])->name('order');
+
 Route::get('auth/{provider}/redirect', [GoogleLoginController::class, 'redirect'])->name('socialite.redirect');
 Route::get('auth/{provider}/callback', [GoogleLoginController::class, 'callback'])->name('socialite.callback');
-
 
 Auth::routes(['verify' => true]);
 
