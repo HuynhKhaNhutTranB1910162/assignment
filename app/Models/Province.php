@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Province extends Model
 {
@@ -12,12 +13,12 @@ class Province extends Model
         'name',
     ];
 
-    public function districts(): hasMany
+    public function districts(): HasMany
     {
         return $this->hasMany(District::class);
     }
 
-    public function addresses(): hasMany
+    public function addresses(): HasMany
     {
         return $this->hasMany(Address::class);
     }

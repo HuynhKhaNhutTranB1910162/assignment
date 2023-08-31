@@ -4,7 +4,7 @@
   Author: Colorib
   Author URI: https://www.colorib.com/
   Version: 1.0
-  Created: Colorib 
+  Created: Colorib
 ******************************************************************/
 
 /*------------------------------------------------------------------
@@ -2566,6 +2566,16 @@ ol {
 	color: #b7b7b7;
 	padding-left: 20px;
 	margin-bottom: 20px;
+}
+
+.checkout__input textarea {
+    height: 50px;
+    width: 100%;
+    border: 1px solid #e1e1e1;
+    font-size: 14px;
+    color: #b7b7b7;
+    padding-left: 20px;
+    margin-bottom: 20px;
 }
 
 .checkout__input input::-webkit-input-placeholder {
