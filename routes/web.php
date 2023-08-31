@@ -14,6 +14,7 @@ use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ServiceController as ClientServiceController;
 use App\Http\Controllers\Client\CartController as ClientCartController;
+use App\Http\Controllers\GoogleLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +44,10 @@ Route::get('/cart', [ClientCartController::class,'index'])->name('cart-product')
 Route::post('/cart/{id}', [ClientProductController::class,'addToCart'])->name('cart.addToCart');
 Route::put('/cart-update', [ClientCartController::class,'update'])->name('cart.update');
 Route::get('/cart-delete/{id}', [ClientCartController::class,'destroy'])->name('cart.delete');
-//end Client
+
+Route::get('auth/{provider}/redirect', [GoogleLoginController::class, 'redirect'])->name('socialite.redirect');
+Route::get('auth/{provider}/callback', [GoogleLoginController::class, 'callback'])->name('socialite.callback');
+
 
 Auth::routes(['verify' => true]);
 
