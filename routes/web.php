@@ -1,28 +1,21 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\ServicePackageController;
-
-use App\Http\Controllers\Client\ClientController;
-use App\Http\Controllers\Client\ProductController as ClientProductController;
-use App\Http\Controllers\Client\ServiceController as ClientServiceController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\GoogleLoginController;
 use App\Http\Controllers\Client\CartController as ClientCartController;
-use App\Http\Controllers\GoogleLoginController;
+use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Client\OrderController as ClientOrderController;
+use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ProfileController as ClientProfileController;
-use \App\Http\Controllers\Client\OrderController as ClientOrderController;
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
+use App\Http\Controllers\Client\ServiceController as ClientServiceController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 //Client
 Route::get('/', [ClientController::class,'index'])->name('client');
@@ -47,7 +40,7 @@ Route::get('auth/{provider}/callback', [GoogleLoginController::class, 'callback'
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'verified']);
+Route::get('/home', [\App\Http\Controllers\Client\HomeController::class, 'index'])->name('home')->middleware(['auth', 'verified']);
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
 
