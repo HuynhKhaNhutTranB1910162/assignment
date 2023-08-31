@@ -37,10 +37,10 @@ Route::post('/cart/{id}', [ClientProductController::class,'addToCart'])->name('c
 Route::put('/cart-update', [ClientCartController::class,'update'])->name('cart.update');
 Route::get('/cart-delete/{id}', [ClientCartController::class,'destroy'])->name('cart.delete');
 
-Route::get('/user-profile', [ClientProfileController::class,'index'])->name('profile');
+Route::get('/user-profile', [ClientProfileController::class,'index'])->name('profile')->middleware(['auth', 'verified']);
 Route::get('/user-profile-delete/{id}', [ClientProfileController::class,'destroy'])->name('profile.delete');
 
-Route::get('/order', [ClientOrderController::class,'index'])->name('order');
+Route::get('/order', [ClientOrderController::class,'index'])->name('order')->middleware(['auth', 'verified']);
 
 Route::get('auth/{provider}/redirect', [GoogleLoginController::class, 'redirect'])->name('socialite.redirect');
 Route::get('auth/{provider}/callback', [GoogleLoginController::class, 'callback'])->name('socialite.callback');

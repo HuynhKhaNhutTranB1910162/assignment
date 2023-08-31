@@ -47,8 +47,7 @@
                             </div>
                             <h6 class="checkout__title">Địa chỉ khách hàng</h6>
                             <div>
-                                <livewire:location>
-                                </livewire:location>
+                                <livewire:location></livewire:location>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6">

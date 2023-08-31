@@ -56,7 +56,7 @@ class Location extends Component
         }
         else
         {
-            toastr()->warning('Dịa chỉ khong dc qua 3');
+            toastr()->warning('Địa chỉ không được thêm quá 3');
 
             return redirect()->route('profile');
         }
@@ -67,10 +67,10 @@ class Location extends Component
     {
         $provinces = Province::all();
 
-        if (!empty($this->provinceId)) {
+        if (! empty($this->provinceId)) {
             $this->districts = District::where('province_id', $this->provinceId)->get();
         }
-        if (!empty($this->districtId)) {
+        if (! empty($this->districtId)) {
             $this->wards = Ward::where('district_id', $this->districtId)->get();
         }
 
