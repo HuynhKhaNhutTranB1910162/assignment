@@ -1,31 +1,24 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\ServicePackageController;
-
-use App\Http\Controllers\Client\ClientController;
-use App\Http\Controllers\Client\ProductController as ClientProductController;
-use App\Http\Controllers\Client\ServiceController as ClientServiceController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\GoogleLoginController;
 use App\Http\Controllers\Client\CartController as ClientCartController;
+use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Client\OrderController as ClientOrderController;
+use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ProfileController as ClientProfileController;
-use \App\Http\Controllers\Client\OrderController as ClientOrderController;
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
+use App\Http\Controllers\Client\ServiceController as ClientServiceController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 //Client
 Route::get('/', [ClientController::class,'index'])->name('client');
-Route::get('/category', [ClientController::class,'showcategory']);
 Route::get('/shop', [ClientProductController::class,'index'])->name('shop');
 Route::get('/product/{id}', [ClientProductController::class,'showDetail'])->name('product-detail');
 Route::get('/client-service', [ClientServiceController::class,'index'])->name('client-service');
@@ -36,16 +29,15 @@ Route::post('/cart/{id}', [ClientProductController::class,'addToCart'])->name('c
 Route::put('/cart-update', [ClientCartController::class,'update'])->name('cart.update');
 Route::get('/cart-delete/{id}', [ClientCartController::class,'destroy'])->name('cart.delete');
 
-Route::get('/user-profile', [ClientProfileController::class,'index'])->name('profile');
+Route::get('/user-profile', [ClientProfileController::class,'index'])->name('profile')->middleware(['auth', 'verified']);
 Route::get('/user-profile-delete/{id}', [ClientProfileController::class,'destroy'])->name('profile.delete');
 
-Route::get('/order', [ClientOrderController::class,'index'])->name('order');
+Route::get('/order', [ClientOrderController::class,'index'])->name('order')->middleware(['auth', 'verified']);
 
-//end Client
+Route::get('auth/{provider}/redirect', [GoogleLoginController::class, 'redirect'])->name('socialite.redirect');
+Route::get('auth/{provider}/callback', [GoogleLoginController::class, 'callback'])->name('socialite.callback');
 
 Auth::routes(['verify' => true]);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['auth', 'verified']);
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
 

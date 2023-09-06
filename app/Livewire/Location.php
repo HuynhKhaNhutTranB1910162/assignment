@@ -40,7 +40,11 @@ class Location extends Component
     public function addNew()
     {
         $validatedData = $this->validate();
-        if (Auth::user()->addresses()->count() < 3){
+        if (!(Auth::user()->addresses()->count() < 3)) {
+            toastr()->warning('Địa chỉ không được thêm quá 3');
+
+            return redirect()->route('profile');
+        } else {
             Address::create([
                 'user_id' => Auth::user()->id,
                 'user_name' => $validatedData['userName'],
@@ -54,12 +58,6 @@ class Location extends Component
 
             return redirect()->route('profile');
         }
-        else
-        {
-            toastr()->warning('Dịa chỉ khong dc qua 3');
-
-            return redirect()->route('profile');
-        }
 
     }
 
@@ -67,10 +65,10 @@ class Location extends Component
     {
         $provinces = Province::all();
 
-        if (!empty($this->provinceId)) {
+        if (! empty($this->provinceId)) {
             $this->districts = District::where('province_id', $this->provinceId)->get();
         }
-        if (!empty($this->districtId)) {
+        if (! empty($this->districtId)) {
             $this->wards = Ward::where('district_id', $this->districtId)->get();
         }
 

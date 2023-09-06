@@ -30,9 +30,9 @@ class LoginController extends Controller
     //    protected $redirectTo = RouteServiceProvider::HOME;
     protected function authenticated()
     {
-        if (Auth::user()->is_admin==1) {
+        if (Auth::user()->is_admin == 1) {
             return redirect('dashboard')->with('status', 'wellcome to your dashboard');
-        } elseif (Auth::user()->is_admin==0) {
+        } elseif (Auth::user()->is_admin == 0) {
             return redirect('/')->with('status', 'Login in successfully');
         }
     }

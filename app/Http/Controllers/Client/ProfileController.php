@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Address;
-use App\Models\Cart;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;

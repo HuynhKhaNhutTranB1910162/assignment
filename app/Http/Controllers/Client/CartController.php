@@ -21,7 +21,6 @@ class CartController extends Controller
             return view('client.cart.index', compact('categories', 'carts'));
         }
         return view('client.cart.index', compact('categories'));
-
     }
 
     public function update(Request $request): JsonResponse
@@ -73,7 +72,6 @@ class CartController extends Controller
 
     public function destroy(string $id): RedirectResponse
     {
-
         $carts = Cart::getCartByUserId($id);
 
         $carts->delete();
@@ -82,5 +80,4 @@ class CartController extends Controller
 
         return redirect('cart');
     }
-
 }
