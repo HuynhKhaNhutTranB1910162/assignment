@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\OrderAdminController;
 use App\Http\Controllers\Admin\ServicePackageController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\GoogleLoginController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Client\OrderController as ClientOrderController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ProfileController as ClientProfileController;
 use App\Http\Controllers\Client\ServiceController as ClientServiceController;
+use App\Http\Controllers\Client\OrderHistoryController as ClienOrderHistoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +35,9 @@ Route::get('/user-profile', [ClientProfileController::class,'index'])->name('pro
 Route::get('/user-profile-delete/{id}', [ClientProfileController::class,'destroy'])->name('profile.delete');
 
 Route::get('/order', [ClientOrderController::class,'index'])->name('order')->middleware(['auth', 'verified']);
+Route::get('/orderhistory', [ClienOrderHistoryController::class,'index'])->name('orderhistory')->middleware(['auth', 'verified']);
+Route::get('/order-detail/{id}', [ClienOrderHistoryController::class,'detail'])->name('order.detail')->middleware(['auth', 'verified']);
+Route::get('/order-detail-update/{id}', [ClienOrderHistoryController::class, 'cancel'])->name('orders.detail.update')->middleware(['auth', 'verified']);
 
 Route::get('auth/{provider}/redirect', [GoogleLoginController::class, 'redirect'])->name('socialite.redirect');
 Route::get('auth/{provider}/callback', [GoogleLoginController::class, 'callback'])->name('socialite.callback');
@@ -86,4 +91,9 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/edit-service-packages/{id}', [ServicePackageController::class, 'edit'])->name('service-packages.edit');
     Route::put('/update-service-packages/{id}', [ServicePackageController::class, 'update'])->name('service-packages.update');
     Route::get('/delete-service-packages/{id}', [ServicePackageController::class, 'destroy'])->name('service-packages.delete');
+
+    Route::get('/orders', [OrderAdminController::class, 'index'])->name('orders');
+    Route::get('/edit-oders/{id}', [OrderAdminController::class, 'edit'])->name('orders.edit');
+    Route::put('/update-oders/{id}', [OrderAdminController::class, 'update'])->name('orders.update');
+
 });

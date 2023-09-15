@@ -57,16 +57,12 @@
                                             </td>
                                             <td class="quantity__item">
                                                 @if($item->product->stock > $item->quantity)
-                                                    <div class="quantity">
-                                                        <div class="row">
-                                                        <div class="input-group-prepend">
-                                                            <button data-dec-product-id="{{ $item->id }}" id="decrease" class="decrease btn btn-outline-primary" type="button">&minus;</button>
-                                                        </div>
-                                                        <input type="text" class="text-center p-2" style="width: 60px" name="quantity" value="{{ $item->quantity }}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                                                        <div class="input-group-append">
-                                                            <button data-inc-product-id="{{ $item->id }}" id="increase" class="increase btn btn-outline-primary" type="button">&plus;</button>
-                                                        </div>
-                                                        </div>
+                                                <div class="quantity">
+                                                    <div class="pro-qty-2">
+                                                        <span type="button" class="fa fa-angle-left decrease qtybtn" data-dec-product-id="{{ $item->id }}" id="decrease"></span>
+                                                        <input type="text" name="quantity" value="{{ $item->quantity }}">
+                                                        <span type="button" class="fa fa-angle-right increase qtybtn" data-inc-product-id="{{ $item->id }}" id="increase"></span>
+                                                    </div>
                                                 </div>
                                                 @else
                                                     <span>Out of stock</span>
@@ -98,7 +94,9 @@
                             <ul>
                                 <li>Tổng tiền <span>{{ CurrencyHelper::format($total) }}</span></li>
                             </ul>
-                            <a href="#" class="primary-btn">Đặt hàng</a>
+                            @if(count($carts) > 0)
+                                <a href="{{ route('order') }}" class="primary-btn">Đặt hàng</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -167,4 +165,5 @@
         });
     </script>
 @endsection
+
 

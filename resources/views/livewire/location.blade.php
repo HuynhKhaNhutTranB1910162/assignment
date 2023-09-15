@@ -1,9 +1,20 @@
 <div>
     <form wire:submit.prevent="addNew">
-        <div class="checkout__input">
-            <p>Tên Khách hàng</p>
-            <input wire:model="userName" type="text" placeholder="Street Address" class="checkout__input__add">
-            @error('userName') <span style="color: red;" class="error">{{ $message }}</span> @enderror
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="checkout__input">
+                    <p> Tên Khách hàng </p>
+                    <input wire:model="userName" placeholder="Street Address" type="text">
+                    @error('userName') <span style="color: red;" class="error">{{ $message }}</span> @enderror
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="checkout__input">
+                    <p> Số điện thoại </p>
+                    <input wire:model="phoneNumber" type="tel" placeholder="Số điện thoại">
+                        @error('phoneNumber') <span style="color: red;" class="error">{{ $message }}</span> @enderror
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-lg-4">

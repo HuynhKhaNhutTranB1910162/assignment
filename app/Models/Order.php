@@ -4,28 +4,37 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class Order extends Model
 {
     protected $table = 'orders';
 
     protected $fillable = [
-        'product_id',
+        'shipping_address',
         'user_id',
-        'amount',
+        'user_name',
+        'phone',
+        'tracking_number',
+        'payment',
         'total',
-        'quantity',
         'status',
         'notes',
     ];
 
-    public function product(): BelongsTo
+    public function orderProduct(): HasMany
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(OrderProduct::class);
     }
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    public static function getOrderById(string $id): Model|Collection|Builder|array|null
+    {
+        return Order::findOrFail($id);
     }
 }

@@ -17,11 +17,13 @@ class Location extends Component
     public $districts = [];
     public $wards = [];
     public $address;
+    public $phoneNumber;
     public $userName;
 
     protected $rules = [
         'userName' => 'required|string|max:36',
         'address' => 'required|string|max:255',
+        'phoneNumber' => 'required',
         'provinceId' => 'required',
         'districtId' => 'required',
         'wardId' => 'required',
@@ -35,6 +37,7 @@ class Location extends Component
         'provinceId.required' => 'Vui lòng chọn tỉnh thành phố.',
         'districtId.required' => 'Vui lòng nhập huyện.',
         'wardId.required' => 'Vui lòng chọn xã phường.',
+        'phoneNumber.required' => 'Vui lòng nhập số điện thoại.',
     ];
 
     public function addNew()
@@ -49,6 +52,7 @@ class Location extends Component
                 'user_id' => Auth::user()->id,
                 'user_name' => $validatedData['userName'],
                 'address' => $validatedData['address'],
+                'phone_number' => $validatedData['phoneNumber'],
                 'province_id' => $validatedData['provinceId'],
                 'district_id' => $validatedData['districtId'],
                 'ward_id' => $validatedData['wardId'],
