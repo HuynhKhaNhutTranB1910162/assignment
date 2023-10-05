@@ -17,8 +17,17 @@ class UserController extends Controller
 
     public function index(): View
     {
-        $users = User::query()->orderByDesc('created_at')->paginate($this->itemPerPage);
+        $searchTerm = request()->query('searchTerm') ?? '';
 
+        if (is_array($searchTerm)){
+            $searchTerm = '';
+        }
+        $search = '%' . $searchTerm . '%';
+
+        $users = User::where(function ($query) use ($search){
+            $query->where('phone', 'like',$search )
+                ->orwhere('email', 'like',$search );
+        })->orderByDesc('created_at')->paginate($this->itemPerPage);
         return view('admin.users.index', compact('users'));
     }
 

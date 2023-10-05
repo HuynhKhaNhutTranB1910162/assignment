@@ -26,7 +26,7 @@
                             <span>Usd <i class="arrow_carrot-down"></i></span>
                             <ul class="dropdown">
                                 <a href="{{ route('profile') }}">Thông tin cá nhân</a>
-                                <li><a href="{{ route('orderhistory') }}">Lịch sử mua hàng</a></li>
+                                <li><a href="{{ route('order.history') }}">Lịch sử mua hàng</a></li>
                                 <li>USD</li>
                             </ul>
                         </div>

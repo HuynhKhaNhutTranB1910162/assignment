@@ -29,6 +29,11 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function receiptProduct(): HasMany
+    {
+        return $this->hasMany(ReceiptProduct::class);
+    }
+
     public function orderProducts(): HasMany
     {
         return $this->hasMany(OrderProduct::class);

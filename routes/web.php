@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\OrderAdminController;
 use App\Http\Controllers\Admin\ServicePackageController;
+use App\Http\Controllers\Admin\AccountAdminController;
+use App\Http\Controllers\Admin\ReceiptController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\GoogleLoginController;
 use App\Http\Controllers\Client\CartController as ClientCartController;
@@ -18,6 +20,7 @@ use App\Http\Controllers\Client\ServiceController as ClientServiceController;
 use App\Http\Controllers\Client\OrderHistoryController as ClienOrderHistoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
 
 //Client
 Route::get('/', [ClientController::class,'index'])->name('client');
@@ -35,7 +38,7 @@ Route::get('/user-profile', [ClientProfileController::class,'index'])->name('pro
 Route::get('/user-profile-delete/{id}', [ClientProfileController::class,'destroy'])->name('profile.delete');
 
 Route::get('/order', [ClientOrderController::class,'index'])->name('order')->middleware(['auth', 'verified']);
-Route::get('/orderhistory', [ClienOrderHistoryController::class,'index'])->name('orderhistory')->middleware(['auth', 'verified']);
+Route::get('/order-history', [ClienOrderHistoryController::class,'index'])->name('order.history')->middleware(['auth', 'verified']);
 Route::get('/order-detail/{id}', [ClienOrderHistoryController::class,'detail'])->name('order.detail')->middleware(['auth', 'verified']);
 Route::get('/order-detail-update/{id}', [ClienOrderHistoryController::class, 'cancel'])->name('orders.detail.update')->middleware(['auth', 'verified']);
 
@@ -44,7 +47,10 @@ Route::get('auth/{provider}/callback', [GoogleLoginController::class, 'callback'
 
 Auth::routes(['verify' => true]);
 
-Route::middleware(['auth', 'isAdmin'])->group(function () {
+Route::get('/admin/login',[LoginController::class,'showAdminLoginForm'])->name('admin.login-view');
+Route::post('/admin/login',[LoginController::class,'adminLogin'])->name('admin.login');
+
+Route::middleware(['auth:admin'])->group(function () {
 
     Route::get('/dashboard', [HomeController::class,'index'])->name('dashboard');
 
@@ -71,6 +77,14 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::put('/update-users-password/{id}', [UserController::class, 'updatePassword'])->name('users.update-password');
     Route::get('/delete-users/{id}', [UserController::class, 'destroy'])->name('users.delete');
 
+    Route::get('/admins', [AccountAdminController::class, 'index'])->name('admins');
+    Route::get('/create-admins', [AccountAdminController::class, 'create'])->name('admins.create');
+    Route::post('/store-admins', [AccountAdminController::class, 'store'])->name('admins.store');
+    Route::get('/edit-admins/{id}', [AccountAdminController::class, 'edit'])->name('admins.edit');
+    Route::put('/update-admins/{id}', [AccountAdminController::class, 'update'])->name('admins.update');
+    Route::put('/update-admins-password/{id}', [AccountAdminController::class, 'updatePassword'])->name('admins.update-password');
+    Route::get('/delete-admins/{id}', [AccountAdminController::class, 'destroy'])->name('admins.delete');
+
     Route::get('/banners', [BannerController::class, 'index'])->name('banners');
     Route::get('/create-banners', [BannerController::class, 'create'])->name('banners.create');
     Route::post('/store-banners', [BannerController::class, 'store'])->name('banners.store');
@@ -96,4 +110,14 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/edit-oders/{id}', [OrderAdminController::class, 'edit'])->name('orders.edit');
     Route::put('/update-oders/{id}', [OrderAdminController::class, 'update'])->name('orders.update');
 
+    Route::get('/receipts', [ReceiptController::class,'index'])->name('receipts');
+    Route::get('/create-receipt', [ReceiptController::class, 'create'])->name('receipts.create');
+    Route::post('/addReceipt-receipts', [ReceiptController::class, 'addReceipt'])->name('receipts.addReceipt');
+    Route::get('/show-receipt', [ReceiptController::class, 'getReceiptProduct'])->name('receipts.getReceiptProduct');
+    Route::post('/store-receipts', [ReceiptController::class, 'store'])->name('receipts.store');
+    Route::post('/addQtyAndPrice-receipts', [ReceiptController::class, 'addQtyAndPrice'])->name('receipts.addQtyAndPrice');
+    Route::get('/edit-receipt/{id}', [ReceiptController::class, 'edit'])->name('receipts.edit');
+    Route::put('/update-receipt/{id}', [ReceiptController::class, 'update'])->name('receipt.update');
+    Route::get('/delete-receipt/{id}', [ReceiptController::class, 'destroy'])->name('receipt.delete');
+    Route::get('/show-detail-receipt/{id}', [ReceiptController::class, 'show'])->name('receipt.show');
 });

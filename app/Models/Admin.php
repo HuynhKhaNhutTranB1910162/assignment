@@ -8,23 +8,28 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable implements MustVerifyEmail
+class Admin extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
+    protected $guard = 'admin';
+
+    protected $table = 'admins';
 
     protected $fillable = [
         'name',
         'email',
         'phone',
-        'password',
+        'address',
+        'cccd',
+        'is_admin',
         'image',
-        'provider_id',
+        'password',
     ];
 
     protected $hidden = [
@@ -35,20 +40,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function orders(): hasMany
+    public function receipts(): HasMany
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Receipt::class);
     }
-    public function addresses(): hasMany
+    public static function getAdminById(string $id): Model|Collection|Builder|array|null
     {
-        return $this->hasMany(Address::class);
+        return Admin::query()->findOrFail($id);
     }
-    public function carts(): HasMany
-    {
-        return $this->hasMany(Cart::class, 'userId');
-    }
-    public static function getUserById(string $id): Model|Collection|Builder|array|null
-    {
-        return User::query()->findOrFail($id);
-    }
+
 }

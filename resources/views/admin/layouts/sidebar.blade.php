@@ -68,6 +68,34 @@
                 </a>
             </li>
             <li class="relative px-6 py-3">
+                @if(request()->routeIs('receipts'))
+                    <span
+                        class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                        aria-hidden="true"
+                    ></span>
+                @endif
+                <a
+                    class="{{ request()->routeIs('receipts') ? 'text-gray-800' : '' }} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    href="{{ route('receipts') }}"
+                >
+                    <svg
+                        class="w-5 h-5"
+                        aria-hidden="true"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                        ></path>
+                    </svg>
+                    <span class="ml-4">Quản lý phiếu nhập</span>
+                </a>
+            </li>
+            <li class="relative px-6 py-3">
                 @if(request()->routeIs('products'))
                     <span
                         class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
@@ -167,6 +195,20 @@
                 </a>
             </li>
             <li class="relative px-6 py-3">
+                @if(request()->routeIs('admins'))
+                    <span
+                        class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                        aria-hidden="true"
+                    ></span>
+                @endif
+                <a class="{{ request()->routeIs('admins') ? 'text-gray-800' : '' }} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="{{ route('admins') }}">
+                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3a3 3 0 1 1-1.614 5.53M15 12a4 4 0 0 1 4 4v1h-3.348M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
+                    </svg>
+                    <span class="ml-4">Quản lý nhan vien</span>
+                </a>
+            </li>
+            <li class="relative px-6 py-3">
                 @if(request()->routeIs('orders'))
                     <span
                         class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
@@ -180,6 +222,7 @@
                     <span class="ml-4">Quản lý đơn hàng</span>
                 </a>
             </li>
+
         </ul>
         <div class="px-6 my-6">
             <button

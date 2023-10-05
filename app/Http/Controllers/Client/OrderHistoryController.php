@@ -40,7 +40,7 @@ class OrderHistoryController extends Controller
         ]);
 
         foreach ($orderProducts as $orderProduct){
-            OrderProduct::updated([
+            OrderProduct::update([
                 'quantity' => $orderProduct->quantity,
             ]);
             $findProduct = Product::getProductById($orderProduct->product->id);
@@ -48,10 +48,9 @@ class OrderHistoryController extends Controller
             $findProduct->update([
                 'stock' => $findProduct->stock + $orderProduct->quantity,
             ]);
-            toastr()->success('Hủy sản phẩm thành công');
         }
+        toastr()->success('Hủy đơn hàng thành công');
+
         return redirect()->back();
     }
-
-
 }
