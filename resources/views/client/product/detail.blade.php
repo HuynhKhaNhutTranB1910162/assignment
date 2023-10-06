@@ -74,19 +74,21 @@
                                                     <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
                                                 </div>
                                                 <div class="product__details__cart__option">
+                                                    @if($product->stock > 0)
                                                     <div class="quantity">
                                                         <div class="pro-qty">
-                                                            <span onclick="incQuantity" class="fa fa-angle-up dec qtybtn"></span>
-                                                            <input id="qty" name="qty" value="1" min="1" class="form-control bg-light text-center">
-
+                                                            <span class="fa fa-angle-up dec qtybtn" onclick="let increaseWith = 1;document.getElementById('base-life').value = parseInt(document.getElementById('base-life').value)+increaseWith;"></span>
+                                                            <input id="base-life" name="qty" value="1" min="1" class="form-control bg-light text-center" readonly>
+                                                            <span class="fa fa-angle-down inc qtybtn" onclick="let increaseWith = 1;document.getElementById('base-life').value = parseInt(document.getElementById('base-life').value)-increaseWith;"></span>
                                                             @error('qty')
-                                                                <span class="text-danger">{{ $message }}</span>
+                                                            <span class="text-danger">{{ $message }}</span>
                                                             @enderror
-
-                                                            <span onclick="decQuantity" class="fa fa-angle-down inc qtybtn"></span>
                                                         </div>
                                                     </div>
                                                     <a href="{{ route('cart.addToCart', ['id' => $product->id]) }}" class="primary-btn" onclick="event.preventDefault(); document.getElementById('addcart').submit();">add to cart</a>
+                                                    @else
+                                                        <span style="color: #b21f2d">Out of stock</span>
+                                                    @endif
                                                 </div>
                                                 <div class="product__details__last__option">
                                                     <ul>
@@ -137,9 +139,6 @@
             </div>
         </div>
     </section>
-    <!-- Shop Details Section End -->
-
-    <!-- Related Section Begin -->
     <section class="related spad">
         <div class="container">
             <div class="row">
@@ -177,5 +176,4 @@
             </div>
         </div>
     </section>
-    <!-- Related Section End -->
 @endsection

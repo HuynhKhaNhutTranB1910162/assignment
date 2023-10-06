@@ -56,7 +56,7 @@
                                                 </div>
                                             </td>
                                             <td class="quantity__item">
-                                                @if($item->product->stock > $item->quantity)
+                                                @if($item->product->stock >= $item->quantity)
                                                 <div class="quantity">
                                                     <div class="pro-qty-2">
                                                         <span type="button" class="fa fa-angle-left decrease qtybtn" data-dec-product-id="{{ $item->id }}" id="decrease"></span>

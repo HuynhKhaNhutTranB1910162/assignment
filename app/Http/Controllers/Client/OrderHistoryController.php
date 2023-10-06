@@ -53,4 +53,12 @@ class OrderHistoryController extends Controller
 
         return redirect()->back();
     }
+
+    public function thankyou(): View
+    {
+        $categories = Category::all();
+
+        return view('client.order.thankyou', compact('categories'));
+    }
+
 }

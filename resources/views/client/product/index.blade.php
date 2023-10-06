@@ -72,28 +72,36 @@
                 </div>
                 <div class="row">
                     @foreach($products as $product)
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="{{ asset('storage/' . $product->image) }}">
-                                    <ul class="product__hover">
-                                        <li><a href="#"><img src="{{asset('client/img/icon/heart.png')}}" alt=""></a></li>
-                                        <li><a href="{{ route('product-detail', ['id' => $product->id]) }}"><img src="{{asset('client/img/icon/search.png')}}" alt=""></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6>{{$product->name}}</h6>
-{{--                                    <a href="{{ route('cart.addToCart', ['id' => $product->id]) }}" class="add-cart">+ Add To Cart</a>--}}
-                                    <div class="rating">
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
+                        @if($product->stock > 0)
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg" data-setbg="{{ asset('storage/' . $product->image) }}">
+                                        <ul class="product__hover">
+                                            <li><a href="#"><img src="{{asset('client/img/icon/heart.png')}}" alt=""></a></li>
+                                            <li><a href="{{ route('product-detail', ['id' => $product->id]) }}"><img src="{{asset('client/img/icon/search.png')}}" alt=""></a></li>
+                                        </ul>
                                     </div>
-                                    <h5>{{ CurrencyHelper::format($product->original_price) }}</h5>
+                                    <div class="product__item__text">
+                                        <h6>{{$product->name}}</h6>
+                                        {{--                                    <a class="add-cart"  href="{{ route('cart.addToCart', ['id' => $product->id]) }}"onclick="event.preventDefault(); document.getElementById('addtocart-form').submit();">--}}
+                                        {{--                                        <form id="addtocart-form" action="{{ route('cart.addToCart', ['id' => $product->id]) }}" method="POST" class="d-none">--}}
+                                        {{--                                            @csrf--}}
+                                        {{--                                            <input type="number" value="1" hidden name="qty">--}}
+                                        {{--                                        </form>--}}
+                                        {{--                                        + Add To Cart--}}
+                                        {{--                                    </a>--}}
+                                        <div class="rating">
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <h5>{{ CurrencyHelper::format($product->original_price) }}</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     @endforeach
                 </div>
                 {{ $products->links('client.pagination.index') }}

@@ -13,7 +13,7 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public int $itemPerPage = 3;
+    public int $itemPerPage = 10;
     public function index(): View
     {
         $categories = Category::all();

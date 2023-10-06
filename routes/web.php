@@ -41,9 +41,11 @@ Route::get('/order', [ClientOrderController::class,'index'])->name('order')->mid
 Route::get('/order-history', [ClienOrderHistoryController::class,'index'])->name('order.history')->middleware(['auth', 'verified']);
 Route::get('/order-detail/{id}', [ClienOrderHistoryController::class,'detail'])->name('order.detail')->middleware(['auth', 'verified']);
 Route::get('/order-detail-update/{id}', [ClienOrderHistoryController::class, 'cancel'])->name('orders.detail.update')->middleware(['auth', 'verified']);
+Route::get('/thankyou', [ClienOrderHistoryController::class,'thankyou'])->name('thankyou')->middleware(['auth', 'verified']);
 
 Route::get('auth/{provider}/redirect', [GoogleLoginController::class, 'redirect'])->name('socialite.redirect');
 Route::get('auth/{provider}/callback', [GoogleLoginController::class, 'callback'])->name('socialite.callback');
+
 
 Auth::routes(['verify' => true]);
 

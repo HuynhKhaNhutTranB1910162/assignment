@@ -2,12 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Mail\OrderMail;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -32,9 +34,10 @@ class Checkout extends Component
     {
         $user = Auth::user();
         $shippingAddresses = Address::where('user_id', $user->id)->get();
+
         if ($shippingAddresses->count() === 0) {
             toastr()->warning('Vui lòng thêm địa chỉ trước khi thanh toán.');
-            return redirect()->route('order');
+            return redirect()->back();
         }
 
         $cartProducts = Cart::where('user_id', $user->id)->get();
@@ -85,20 +88,29 @@ class Checkout extends Component
             ]);
         }
 
+        Mail::to($order->user->email)->send(new OrderMail($order));
         Cart::where('user_id', Auth::user()->id)->delete();
 
-        return redirect()->route('client');
+        return redirect()->route('thankyou');
     }
 
     public function render(): View
     {
         if (Auth::check()) {
-            $cart = Cart::where('user_id', Auth::user()->id)->get();
+            $carts = Cart::where('user_id', Auth::user()->id)->get();
 
             $addresses = Address::where('user_id', Auth::id())->get();
+
+            foreach ($carts as $item) {
+                if(! Product::where('id', $item->product_id)->where('stock', '>=', $item->quantity)->exists()) {
+                    $removeItem = Cart::where('user_id', Auth::user()->id)->where('product_id', $item->product_id)->first();
+                    $removeItem -> delete();
+                }
+            }
+            $cartItems = Cart::where('user_id', Auth::user()->id)->get();
             return view('livewire.checkout',
                 [
-                    'cart' => $cart,
+                    'cart' => $cartItems,
                     'addresses' => $addresses,
                 ]);
         }

@@ -14,6 +14,7 @@ class OrderController extends Controller
     public function index(): View
     {
         $categories = Category::all();
+
         return view('client.order.index', compact('categories'));
     }
 }
