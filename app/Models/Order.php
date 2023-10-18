@@ -19,6 +19,7 @@ class Order extends Model
         'phone',
         'tracking_number',
         'payment',
+        'payment_status',
         'total',
         'status',
         'notes',

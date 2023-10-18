@@ -58,12 +58,12 @@
                         <li class="{{ request()->routeIs('client') ? 'active' : '' }}"><a href=" {{ route('client') }} ">Trang chủ</a></li>
                         <li class="{{ request()->routeIs('client-service') ? 'active' : '' }}"><a href=" {{ route('client-service') }} ">Dịch vụ</a></li>
                         <li class="{{ request()->routeIs('shop') ? 'active' : '' }}"><a href=" {{ route('shop') }} ">Shop</a>
-                            <ul class="dropdown">
-                                @foreach($categories as $category)
-                                    <li><a href="./about.html">{{$category->name}}</a></li>
-                                @endforeach
+{{--                            <ul class="dropdown">--}}
+{{--                                @foreach($categories as $category)--}}
+{{--                                    <li><a href="./about.html">{{$category->name}}</a></li>--}}
+{{--                                @endforeach--}}
 
-                            </ul>
+{{--                            </ul>--}}
                         </li>
                         <li><a href="./shop.html">Đặt lịch</a></li>
                     </ul>

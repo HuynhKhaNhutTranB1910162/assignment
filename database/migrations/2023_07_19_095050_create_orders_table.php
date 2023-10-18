@@ -15,6 +15,7 @@ return new class () extends Migration {
             $table->string('phone');
             $table->string('tracking_number');
             $table->string('payment')->nullable();
+            $table->string('payment_status')->nullable();
             $table->integer('total');
             $table->string('status')->default('pending');
             $table->string('notes')->nullable();

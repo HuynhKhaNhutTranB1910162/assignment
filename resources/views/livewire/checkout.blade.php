@@ -50,14 +50,40 @@
                         <textarea wire:model="notes" placeholder="Ghi chú cho đơn hàng"></textarea>
                         @error('notes') <span style="color: red;" class="error">{{ $message }}</span> @enderror
                     </div>
-                    <div class="checkout__input__checkbox">
-                        <label for="payment">
-                            Thanh toán khi nhận hàng
-                            <input type="checkbox" id="payment">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <button type="submit" class="site-btn">Đặt hàng</button>
+
+                        <p>Chọn phương thức thanh toán : </p>
+
+                    <div wire:model="payment">
+                            <div >
+                                <input wire:model.live="paymentType" value="payment" type="radio" id="payment">
+                                <label for="payment"> Thanh toán qua ngân hàng</label>
+                                <img src="{{asset('client/img/shop-details/details-payment.png')}}" alt="">
+                                <span class="checkmark"></span>
+                            </div>
+                        <br>
+                            <div >
+                                <input wire:model.live="paymentType" value="paypal" type="radio" id="paypal">
+                                <label for="paypal"> Thanh toán khi nhận hàng</label>
+                                <span class="checkmark"></span>
+                            </div>
+                        </div>
+                    @error('payment')
+                    <span class="text-danger">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                    @enderror
+                    @switch($showTypePayment)
+                        @case('payment')
+                            <div class="p-l-49">
+                                <form >
+                                    <span wire:click="checkoutVNPAY" class="site-btn">thanh toan VNPay</span>
+                                </form>
+                            </div>
+                            @break;
+                        @case('paypal')
+                            <br>
+                            <button type="submit" class="site-btn">Đặt hàng</button>
+                    @endswitch
                 </div>
             </div>
         </div>

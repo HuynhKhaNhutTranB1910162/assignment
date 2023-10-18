@@ -16,11 +16,7 @@ class ProductController extends Controller
     public int $itemPerPage = 10;
     public function index(): View
     {
-        $categories = Category::all();
-        $products = Product::query()
-            ->orderByDesc('created_at')
-            ->paginate($this->itemPerPage);
-        return view('client.product.index', compact('categories', 'products'));
+        return view('client.product.index');
     }
 
     public function showDetail(string $id): View

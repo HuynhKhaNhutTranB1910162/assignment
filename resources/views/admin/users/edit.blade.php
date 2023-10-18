@@ -43,26 +43,6 @@
                         </span>
                         @enderror
                     </label>
-                    <div class="mt-4 text-sm">
-                        <span class="text-gray-700 dark:text-gray-400">
-                            Quyền truy cập
-                        </span>
-                        <div class="mt-2">
-                            <label class="inline-flex items-center text-gray-600 dark:text-gray-400">
-                                <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="is_admin" value="1" {{$user->is_admin === 1 ? 'checked' : ''}}>
-                                <span class="ml-2">Quản trị viên</span>
-                            </label>
-                            <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
-                                <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="is_admin" value="0"{{$user->is_admin === 0 ? 'checked' : ''}}>
-                                <span class="ml-2">Người dùng</span>
-                            </label>
-                            @error('is_admin')
-                            <span class="text-xs text-red-600" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
                     <br>
                     <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                         Cập nhật

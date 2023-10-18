@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\GoogleLoginController;
 use App\Http\Controllers\Client\CartController as ClientCartController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\OrderController as ClientOrderController;
+use App\Http\Controllers\Client\PaymentController as ClientPaymentController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ProfileController as ClientProfileController;
 use App\Http\Controllers\Client\ServiceController as ClientServiceController;
@@ -35,6 +36,9 @@ Route::put('/cart-update', [ClientCartController::class,'update'])->name('cart.u
 Route::get('/cart-delete/{id}', [ClientCartController::class,'destroy'])->name('cart.delete');
 
 Route::get('/user-profile', [ClientProfileController::class,'index'])->name('profile')->middleware(['auth', 'verified']);
+Route::get('/user-edit-profile/{id}', [ClientProfileController::class,'edit'])->name('profile.edit')->middleware(['auth', 'verified']);
+Route::put('/user-update/{id}', [ClientProfileController::class,'update'])->name('profile.update');
+Route::put('/user-update-password/{id}', [ClientProfileController::class, 'updatePassword'])->name('profile.update-password');
 Route::get('/user-profile-delete/{id}', [ClientProfileController::class,'destroy'])->name('profile.delete');
 
 Route::get('/order', [ClientOrderController::class,'index'])->name('order')->middleware(['auth', 'verified']);
@@ -42,6 +46,8 @@ Route::get('/order-history', [ClienOrderHistoryController::class,'index'])->name
 Route::get('/order-detail/{id}', [ClienOrderHistoryController::class,'detail'])->name('order.detail')->middleware(['auth', 'verified']);
 Route::get('/order-detail-update/{id}', [ClienOrderHistoryController::class, 'cancel'])->name('orders.detail.update')->middleware(['auth', 'verified']);
 Route::get('/thankyou', [ClienOrderHistoryController::class,'thankyou'])->name('thankyou')->middleware(['auth', 'verified']);
+
+//Route::post('/VNPay-payment', [ClientOrderController::class,'checkoutVNPAY'])->name('payment')->middleware(['auth', 'verified']);
 
 Route::get('auth/{provider}/redirect', [GoogleLoginController::class, 'redirect'])->name('socialite.redirect');
 Route::get('auth/{provider}/callback', [GoogleLoginController::class, 'callback'])->name('socialite.callback');

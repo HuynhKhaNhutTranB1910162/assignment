@@ -39,6 +39,7 @@
             </li>
         </ul>
         <ul>
+
             <li class="relative px-6 py-3">
                 @if(request()->routeIs('categories'))
                     <span
