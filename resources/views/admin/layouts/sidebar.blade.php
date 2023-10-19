@@ -6,7 +6,7 @@
             class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
             href="{{ route('dashboard') }}"
         >
-            Windmill
+            {{ Auth::guard('admin')->user()->name }}
         </a>
         <ul class="mt-6">
             <li class="relative px-6 py-3">
@@ -217,6 +217,20 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm1-4H5m0 0L3 4m0 0h5.501M3 4l-.792-3H1m11 3h6m-3 3V1"/>
                     </svg>
                     <span class="ml-4">Quản lý đơn hàng</span>
+                </a>
+            </li>
+            <li class="relative px-6 py-3">
+                @if(request()->routeIs('shippers'))
+                    <span
+                        class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                        aria-hidden="true"
+                    ></span>
+                @endif
+                <a class="{{ request()->routeIs('shippers') ? 'text-gray-800' : '' }} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="{{ route('shippers') }}">
+                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.5 10.25a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Zm0 0a2.225 2.225 0 0 0-1.666.75H12m3.5-.75a2.225 2.225 0 0 1 1.666.75H19V7m-7 4V3h5l2 4m-7 4H6.166a2.225 2.225 0 0 0-1.666-.75M12 11V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v9h1.834a2.225 2.225 0 0 1 1.666-.75M19 7h-6m-8.5 3.25a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z"/>
+                    </svg>
+                    <span class="ml-4">Quản lý Shipper</span>
                 </a>
             </li>
 {{--            <li class="relative px-6 py-3">--}}

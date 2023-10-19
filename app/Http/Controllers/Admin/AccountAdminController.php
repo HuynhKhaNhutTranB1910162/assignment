@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CreateAccountRequest;
 use App\Http\Requests\Admin\UpdatedAccountRequest;
-use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\Admin;
 use App\Traits\ImageTrait;
 use Illuminate\Http\RedirectResponse;
@@ -43,7 +42,7 @@ class AccountAdminController extends Controller
             'address' => $data['address'],
             'image' => $data['image'],
             'is_admin' => $data['is_admin'],
-            'password' => $data['password'],
+            'password' => Hash::make($data['password']),
         ]);
 
         toastr()->success('Thêm mới nhan vien thành công');

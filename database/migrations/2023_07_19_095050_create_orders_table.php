@@ -11,6 +11,8 @@ return new class () extends Migration {
             $table->id();
             $table->string('shipping_address');
             $table->string('user_id');
+            $table->string('shipper_id');
+            $table->string('shipper_status')->default('pending');
             $table->string('user_name');
             $table->string('phone');
             $table->string('tracking_number');
@@ -19,6 +21,7 @@ return new class () extends Migration {
             $table->integer('total');
             $table->string('status')->default('pending');
             $table->string('notes')->nullable();
+            $table->string('reviews')->nullable();
             $table->timestamps();
         });
     }

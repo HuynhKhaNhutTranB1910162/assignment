@@ -15,6 +15,8 @@ class Order extends Model
     protected $fillable = [
         'shipping_address',
         'user_id',
+        'shipper_id',
+        'shipper_status',
         'user_name',
         'phone',
         'tracking_number',
@@ -33,6 +35,11 @@ class Order extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function shipper(): BelongsTo
+    {
+        return $this->belongsTo(shipper::class);
     }
     public static function getOrderById(string $id): Model|Collection|Builder|array|null
     {

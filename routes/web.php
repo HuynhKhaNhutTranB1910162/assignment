@@ -8,13 +8,16 @@ use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\OrderAdminController;
 use App\Http\Controllers\Admin\ServicePackageController;
 use App\Http\Controllers\Admin\AccountAdminController;
+use App\Http\Controllers\Admin\ShipperController;
 use App\Http\Controllers\Admin\ReceiptController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\GoogleLoginController;
+
+use App\Http\Controllers\Shipper\ShipperPageController;
+
 use App\Http\Controllers\Client\CartController as ClientCartController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\OrderController as ClientOrderController;
-use App\Http\Controllers\Client\PaymentController as ClientPaymentController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ProfileController as ClientProfileController;
 use App\Http\Controllers\Client\ServiceController as ClientServiceController;
@@ -57,6 +60,9 @@ Auth::routes(['verify' => true]);
 
 Route::get('/admin/login',[LoginController::class,'showAdminLoginForm'])->name('admin.login-view');
 Route::post('/admin/login',[LoginController::class,'adminLogin'])->name('admin.login');
+
+Route::get('/shipper/login',[LoginController::class,'showShipperLoginForm'])->name('shipper.login-view');
+Route::post('/shipper/login',[LoginController::class,'shipperLogin'])->name('shipper.login');
 
 Route::middleware(['auth:admin'])->group(function () {
 
@@ -128,4 +134,19 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::put('/update-receipt/{id}', [ReceiptController::class, 'update'])->name('receipt.update');
     Route::get('/delete-receipt/{id}', [ReceiptController::class, 'destroy'])->name('receipt.delete');
     Route::get('/show-detail-receipt/{id}', [ReceiptController::class, 'show'])->name('receipt.show');
+
+    Route::get('/shippers', [ShipperController::class, 'index'])->name('shippers');
+    Route::get('/create-shippers', [ShipperController::class, 'create'])->name('shippers.create');
+    Route::post('/store-shippers', [ShipperController::class, 'store'])->name('shippers.store');
+    Route::get('/edit-shippers/{id}', [ShipperController::class, 'edit'])->name('shippers.edit');
+    Route::put('/update-shippers/{id}', [ShipperController::class, 'update'])->name('shippers.update');
+    Route::put('/update-shippers-password/{id}', [ShipperController::class, 'updatePassword'])->name('shippers.update-password');
+    Route::get('/delete-shippers/{id}', [ShipperController::class, 'destroy'])->name('shippers.delete');
+});
+
+Route::middleware(['auth:shipper'])->group(function () {
+    Route::get('/shipperPage', [ShipperPageController::class,'index'])->name('shipperPage');
+    Route::get('/shipperList', [ShipperPageController::class,'list'])->name('shipperList');
+    Route::get('/edit-shipperPage/{id}', [ShipperPageController::class, 'edit'])->name('shipperPage.edit');
+    Route::put('/update-shipperPage/{id}', [ShipperPageController::class, 'update'])->name('shipperPage.update');
 });

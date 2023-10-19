@@ -49,7 +49,14 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+
+        'shipper' => [
+            'driver' => 'session',
+            'provider' => 'shippers',
+
+        ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -69,13 +76,20 @@ return [
     */
 
     'providers' => [
+
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
+        ],
+
+        'shippers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Shipper::class,
         ],
 
         // 'users' => [
@@ -108,6 +122,12 @@ return [
         ],
         'admins' => [
             'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'shippers' => [
+            'provider' => 'shippers',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
