@@ -25,7 +25,7 @@
                             <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
                                     here</a> to enter your code</h6>
                             <h6 class="checkout__title">Cập nhật thông tin người dùng</h6>
-                            <form action="{{ route('profile.update',['id' => $user->id]) }} }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('profile.update-user',['id' => $user->id]) }} }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
@@ -69,26 +69,11 @@
 
                             <br>
                             <h6 class="checkout__title">Cập nhật thông tin người dùng</h6>
-                            <form action="{{ route('profile.update-password', ['id' => $user->id]) }}" method="POST">
+                            <form action="{{ route('profile.update-password-user',['id' => $user->id]) }} }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-{{--                                <div class="row">--}}
-{{--                                    <div class="col-lg-6">--}}
-{{--                                        <div class="checkout__input">--}}
-{{--                                            <p>Nhập mật khẩu</p>--}}
-{{--                                            <input name="password" type="password" id="password">--}}
-{{--                                            @error('password') <span style="color: red;" class="error">{{ $message }}</span> @enderror--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <label>--}}
-{{--                                        <input id="showHidePassword" type="checkbox" >--}}
-{{--                                        <span class="ml-2">--}}
-{{--                                        Hiển thị mật khẩu--}}
-{{--                                    </span>--}}
-{{--                                    </label>--}}
-{{--                                </div>--}}
                                 <div class="checkout__input">
-                                    <label for="current_password">Mật khẩu cũ:</label>
+                                    <label for="password_old">Mật khẩu cũ:</label>
                                     <input type="password" id="current_password" name="current_password">
                                 </div>
 
@@ -98,7 +83,7 @@
                                 </div>
 {{--                                <div class="checkout__input">--}}
 {{--                                    <label for="new_password_confirmation">Xác nhận mật khẩu mới:</label>--}}
-{{--                                    <input type="password" id="new_password_confirmation" name="new_password_confirmation">--}}
+{{--                                    <input type="password" id="password" name="new_password_confirmation">--}}
 {{--                                </div>--}}
                                 <div>
                                     <button type="submit" class="site-btn">Đổi mật khẩu</button>

@@ -121,46 +121,48 @@
                 </div>
             </form>
         </div>
-        <div class="container px-6 mx-auto grid">
-            <form action="{{ route('orders.update', ['id' => $order->id]) }}" method="POST">
-                @method('PUT')
-                @csrf
-                <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                    <!-- Helper text -->
-                    <label class="block mt-4 text-sm">
-                        <h6 class="my-6 text-2xl font-semibold text-gray-400 dark:text-gray-100" style="color:blueviolet">
-                            Cập nhật trạng thái đơn hàng
-                        </h6>
-                        <span class="text-gray-700 dark:text-gray-400">Trạng thái đơn hàng:</span>
-                        <select name="status" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-                            @switch($order->status)
-                                @case('pending')
-                                    <option value="pending" >Đang chờ duyệt</option>
-                                @case('accepted')
-                                    <option value="accepted">Đã được duyệt</option>
-                                @case('cancel')
-                                    <option value="cancel" >Hủy bỏ</option>
-                                @case('refund')
-                                    <option value="refund">Hoàn tiền</option>
-                                    @break
-                            @endswitch
-                        </select>
-                        @if($order->status == 'accepted')
-                            <br>
-                            <span class="text-gray-700 dark:text-gray-400">Chọn nhân viên giao hàng :</span>
-                            <select name="shipper_id" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-                                @foreach($shippers as $shipper)
-                                    <option value="{{$shipper->id}}">{{$shipper->name}}</option>
-                                @endforeach
+        @if(!$order->status === 'success')
+            <div class="container px-6 mx-auto grid">
+                <form action="{{ route('orders.update', ['id' => $order->id]) }}" method="POST">
+                    @method('PUT')
+                    @csrf
+                    <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                        <!-- Helper text -->
+                        <label class="block mt-4 text-sm">
+                            <h6 class="my-6 text-2xl font-semibold text-gray-400 dark:text-gray-100" style="color:blueviolet">
+                                Cập nhật trạng thái đơn hàng
+                            </h6>
+                            <span class="text-gray-700 dark:text-gray-400">Trạng thái đơn hàng:</span>
+                            <select name="status" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                @switch($order->status)
+                                    @case('pending')
+                                        <option value="pending" >Đang chờ duyệt</option>
+                                    @case('accepted')
+                                        <option value="accepted">Đã được duyệt</option>
+                                    @case('cancel')
+                                        <option value="cancel" >Hủy bỏ</option>
+                                    @case('refund')
+                                        <option value="refund">Hoàn tiền</option>
+                                        @break
+                                @endswitch
                             </select>
-                        @endif
-                    </label>
-                    <br>
-                    <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                       cập nhật
-                    </button>
-                </div>
-            </form>
-        </div>
+                            @if($order->status == 'accepted')
+                                <br>
+                                <span class="text-gray-700 dark:text-gray-400">Chọn nhân viên giao hàng :</span>
+                                <select name="shipper_id" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                    @foreach($shippers as $shipper)
+                                        <option value="{{$shipper->id}}">{{$shipper->name}}</option>
+                                    @endforeach
+                                </select>
+                            @endif
+                        </label>
+                        <br>
+                        <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                            cập nhật
+                        </button>
+                    </div>
+                </form>
+            </div>
+        @endif
     </main>
 @endsection

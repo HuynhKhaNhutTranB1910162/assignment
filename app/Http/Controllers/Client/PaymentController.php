@@ -12,9 +12,9 @@ class PaymentController extends Controller
         date_default_timezone_set('Asia/Ho_Chi_Minh');
 
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "https://assignment.com/";
-        $vnp_TmnCode = "4LSJFEV3";
-        $vnp_HashSecret = "DCCBBWJNQAYJLAFIQHKAMZWZZJQPPXUC";
+        $vnp_Returnurl = "https://assignment.com/order-paymentCallback";
+        $vnp_TmnCode = config('services.VNPAY.vnp_TmnCode');
+        $vnp_HashSecret = config('services.VNPAY.vnp_HashSecret');
 
         $vnp_TxnRef = '12345';
         $vnp_OrderInfo = 'Thanh toan don hang Spa shop';

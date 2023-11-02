@@ -15,6 +15,7 @@
                         {{ $address->user_name }},{{ $address->phone_number}} ,{{$address->ward->name}}, {{$address->district->name}}, {{$address->province->name}}.
                         </span>
                     </label>
+                    <br>
                     @error('addressId') <span style="color: red;" class="error">{{ $message }}</span> @enderror
                 </h6>
                 @endforeach

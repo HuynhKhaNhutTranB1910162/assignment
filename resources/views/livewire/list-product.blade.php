@@ -67,20 +67,20 @@
                                         </div>
                                         <div class="product__item__text">
                                             <h6>{{$product->name}}</h6>
-                                            <a class="add-cart"  href="{{ route('cart.addToCart', ['id' => $product->id]) }}"onclick="event.preventDefault(); document.getElementById('addtocart-form').submit();">
-                                                <form id="addtocart-form" action="{{ route('cart.addToCart', ['id' => $product->id]) }}" method="POST" class="d-none">
-                                                    @csrf
-                                                    <input type="number" value="1" hidden name="qty">
-                                                </form>
+                                            <form id="addtocart-form-{{ $product->id }}" action="{{ route('cart.addToCart', ['id' => $product->id]) }}" method="POST" class="d-none">
+                                                @csrf
+                                                <input type="number" value="1" hidden name="qty">
+                                            </form>
+                                            <a class="add-cart"  href="#" onclick="event.preventDefault(); document.getElementById('addtocart-form-{{ $product->id }}').submit();">
                                                 + Add To Cart
                                             </a>
-                                            <div class="rating">
-                                                <i class="fa fa-star-o"></i>
-                                                <i class="fa fa-star-o"></i>
-                                                <i class="fa fa-star-o"></i>
-                                                <i class="fa fa-star-o"></i>
-                                                <i class="fa fa-star-o"></i>
-                                            </div>
+{{--                                            <a class="add-cart"  href="{{ route('cart.addToCart', ['id' => $product->id]) }}" onclick="event.preventDefault(); document.getElementById('addtocart-form').submit();">--}}
+{{--                                                <form id="addtocart-form-{{ $product->id }}" action="{{ route('cart.addToCart', ['id' => $product->id]) }}" method="POST" class="d-none">--}}
+{{--                                                    @csrf--}}
+{{--                                                    <input type="number" value="1" hidden name="qty">--}}
+{{--                                                </form>--}}
+{{--                                                + Add To Cart--}}
+{{--                                            </a>--}}
                                             <h5>{{ CurrencyHelper::format($product->original_price) }}</h5>
                                         </div>
                                     </div>

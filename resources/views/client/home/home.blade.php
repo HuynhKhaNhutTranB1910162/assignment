@@ -36,19 +36,30 @@
     <div class="container">
         <div class="blog__details__comment">
             <h4>Đặt lịch</h4>
-            <form action="#">
+            <form action="{{ route('appointment.store') }}" method="POST">
+                @csrf
                 <div class="row">
                     <div class="col-lg-4 col-md-4">
-                        <input type="text" placeholder="Name">
+                        @error('name') <span style="color: red;" class="error">{{ $message }}</span> @enderror
+                        <input name="name" type="text" placeholder="Name">
                     </div>
                     <div class="col-lg-4 col-md-4">
-                        <input type="text" placeholder="Email">
+                        @error('email') <span style="color: red;" class="error">{{ $message }}</span> @enderror
+                        <input name="email" type="text" placeholder="Email">
                     </div>
                     <div class="col-lg-4 col-md-4">
-                        <input type="text" placeholder="Phone">
+                        @error('phone') <span style="color: red;" class="error">{{ $message }}</span> @enderror
+                        <input name="phone" type="text" placeholder="Phone">
+
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        @error('appointment_at') <span style="color: red;" class="error">{{ $message }}</span> @enderror
+                        <input name="appointment_at" type="datetime-local" placeholder="appointment_at">
+                    </div>
+                    <div class="col-lg-8 col-md-4">
+                        <textarea name="notes" placeholder="Comment"></textarea>
                     </div>
                     <div class="col-lg-12 text-center">
-                        <textarea placeholder="Comment"></textarea>
                         <button type="submit" class="site-btn">Đặt lịch</button>
                     </div>
                 </div>

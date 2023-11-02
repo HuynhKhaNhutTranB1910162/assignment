@@ -29,6 +29,7 @@ class ProfileController extends Controller
 
     public function edit(string $id):view
     {
+
         $categories = Category::all();
 
         $user = User::getUserById($id);

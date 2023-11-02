@@ -95,14 +95,20 @@ class AccountAdminController extends Controller
         $admin = Admin::getAdminById($id);
 
         $data = $request->validate([
+            'current_password' => 'required',
             'password' => ['required', 'string', 'min:8', 'max:32'],
         ]);
+
+        if(!Hash::check($request->current_password, $admin->password)) {
+            toastr()->warning('Mật khẩu cũ không chính xác');
+            return redirect()->back();
+        }
 
         $admin->update([
             'password' => Hash::make($data['password']),
         ]);
 
-        toastr()->success('Cập nhật mật khẩu người dùng ' . $admin->name  . ' thành công');
+        toastr()->success('Cập nhật mật khẩu  ' . $admin->name  . ' thành công');
 
         return redirect('admins');
     }

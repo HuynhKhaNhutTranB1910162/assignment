@@ -84,6 +84,23 @@
                         <span class="text-gray-700 dark:text-gray-400">
                             Mật khẩu
                         </span>
+                        <input name="current_password" type="password" id="password" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" placeholder="Thêm mật khẩu" >
+                        <label class="flex items-center dark:text-gray-400 mt-2">
+                            <input id="showHidePassword" type="checkbox" class="text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                            <span class="ml-2">
+                                Hiển thị mật khẩu
+                            </span>
+                        </label>
+                        @error('current_password')
+                        <span class="text-xs text-red-600" role="alert">
+                        <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </label>
+                    <label class="block mt-4 text-sm">
+                        <span class="text-gray-700 dark:text-gray-400">
+                            Mật khẩu cập nhật
+                        </span>
                         <input name="password" type="password" id="password" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" placeholder="Thêm mật khẩu" >
                         <label class="flex items-center dark:text-gray-400 mt-2">
                             <input id="showHidePassword" type="checkbox" class="text-purple-600 form-checkbox focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">

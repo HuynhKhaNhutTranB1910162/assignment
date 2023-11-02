@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductReview;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,9 @@ class ProductController extends Controller
         $categories = Category::all();
         $product = Product::getProductById($id);
         $productRelated = Product::all()->take(4);
-        return view('client.product.detail', compact('categories', 'productRelated', 'product'));
+        $productReview = ProductReview::where('product_id', $product->id)->get();
+        $productRating = round(ProductReview::where('product_id', $product->id)->avg('rating'),1);
+        return view('client.product.detail', compact('categories', 'productRelated', 'product','productReview','productRating'));
     }
 
     public function addToCart(Request $request, int $productId): RedirectResponse

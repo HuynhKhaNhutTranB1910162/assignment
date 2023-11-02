@@ -90,8 +90,14 @@ class ShipperController extends Controller
         $shipper = shipper::getShipperById($id);
 
         $data = $request->validate([
+            'current_password' => 'required',
             'password' => ['required', 'string', 'min:8', 'max:32'],
         ]);
+
+        if(!Hash::check($request->current_password, $shipper->password)) {
+            toastr()->warning('Mật khẩu cũ không chính xác');
+            return redirect()->back();
+        }
 
         $shipper->update([
             'password' => Hash::make($data['password']),

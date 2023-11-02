@@ -64,8 +64,9 @@
                                     <li>Tên khách hàng <span>{{ Auth::user()->name }}</span></li>
                                     <li>Email <span>{{ Auth::user()->email }}</span></li>
                                     <li>Số điện thoại <span>{{ Auth::user()->phone }}</span></li>
+                                    <li>Số điện thoại <span>{{ Auth::user()->id }}</span></li>
                                 </ul>
-                                <a href="{{ route('profile.edit', ['id' => Auth::user()->id]) }}"><button class="site-btn">Cập nhật thông tin</button></a>
+                                <a href="{{ route('profile.edit-user', ['id' => Auth::user()->id]) }}"><button class="site-btn">Cập nhật thông tin</button></a>
                             </div>
                         </div>
                     </div>

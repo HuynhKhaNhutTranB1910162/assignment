@@ -64,9 +64,9 @@ class Checkout extends Component
         $data = $this->validate();
 
         $vnp_Url = 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
-        $vnp_Returnurl = 'https://assignment.com/thankyou';
-        $vnp_TmnCode = '4LSJFEV3';
-        $vnp_HashSecret = 'DCCBBWJNQAYJLAFIQHKAMZWZZJQPPXUC';
+        $vnp_Returnurl = 'https://assignment.com/order-paymentCallback';
+        $vnp_TmnCode = config('services.VNPay.vnp_TmnCode');
+        $vnp_HashSecret = config('services.VNPay.vnp_HashSecret');
 
         $vnp_TxnRef = Str::upper('ORG' . Str::random(15));
         $vnp_OrderInfo = 'Thanh toan don hang Spa shop';

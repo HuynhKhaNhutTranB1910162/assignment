@@ -42,6 +42,11 @@
                                         </div>
                                     </div>
                                 @endif
+                                @if( $order->status === 'success' && $order->reviews == 'NULL')
+                                    <div>
+                                        <button class="btn btn-outline-warning" type="button" data-toggle="modal" data-target="#exampleModal">Đánh giá đơn hàng</button>
+                                    </div>
+                                @endif
                             </div>
                             <hr class="my-4">
 
@@ -159,6 +164,29 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Đánh giá đơn hàng</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('order.review', ['id' => $order->id]) }}" method="POST">
+                        @method('PUT')
+                        @csrf
+                        <div class="modal-body">
+                            <label for="exampleFormControlTextarea1">Đánh giá</label>
+                            <textarea name="reviews" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

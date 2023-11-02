@@ -9,17 +9,21 @@ use App\Http\Controllers\Admin\OrderAdminController;
 use App\Http\Controllers\Admin\ServicePackageController;
 use App\Http\Controllers\Admin\AccountAdminController;
 use App\Http\Controllers\Admin\ShipperController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ReceiptController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\GoogleLoginController;
 
 use App\Http\Controllers\Shipper\ShipperPageController;
+use App\Http\Controllers\Shipper\ShipperProfileController;
 
 use App\Http\Controllers\Client\CartController as ClientCartController;
 use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Client\AppointmentClientController;
 use App\Http\Controllers\Client\OrderController as ClientOrderController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ProfileController as ClientProfileController;
+use App\Http\Controllers\Client\ProductReviewController as ClientProductReviewController;
 use App\Http\Controllers\Client\ServiceController as ClientServiceController;
 use App\Http\Controllers\Client\OrderHistoryController as ClienOrderHistoryController;
 use Illuminate\Support\Facades\Auth;
@@ -39,18 +43,23 @@ Route::put('/cart-update', [ClientCartController::class,'update'])->name('cart.u
 Route::get('/cart-delete/{id}', [ClientCartController::class,'destroy'])->name('cart.delete');
 
 Route::get('/user-profile', [ClientProfileController::class,'index'])->name('profile')->middleware(['auth', 'verified']);
-Route::get('/user-edit-profile/{id}', [ClientProfileController::class,'edit'])->name('profile.edit')->middleware(['auth', 'verified']);
-Route::put('/user-update/{id}', [ClientProfileController::class,'update'])->name('profile.update');
-Route::put('/user-update-password/{id}', [ClientProfileController::class, 'updatePassword'])->name('profile.update-password');
+Route::get('/user-edit-profile/{id}', [ClientProfileController::class,'edit'])->name('profile.edit-user');
+Route::put('/user-update-user/{id}', [ClientProfileController::class,'update'])->name('profile.update-user');
+Route::put('/user-update-password-user/{id}', [ClientProfileController::class, 'updatePassword'])->name('profile.update-password-user');
 Route::get('/user-profile-delete/{id}', [ClientProfileController::class,'destroy'])->name('profile.delete');
 
 Route::get('/order', [ClientOrderController::class,'index'])->name('order')->middleware(['auth', 'verified']);
 Route::get('/order-history', [ClienOrderHistoryController::class,'index'])->name('order.history')->middleware(['auth', 'verified']);
 Route::get('/order-detail/{id}', [ClienOrderHistoryController::class,'detail'])->name('order.detail')->middleware(['auth', 'verified']);
+Route::put('/order-review/{id}', [ClientOrderController::class,'review'])->name('order.review');
 Route::get('/order-detail-update/{id}', [ClienOrderHistoryController::class, 'cancel'])->name('orders.detail.update')->middleware(['auth', 'verified']);
 Route::get('/thankyou', [ClienOrderHistoryController::class,'thankyou'])->name('thankyou')->middleware(['auth', 'verified']);
 
-//Route::post('/VNPay-payment', [ClientOrderController::class,'checkoutVNPAY'])->name('payment')->middleware(['auth', 'verified']);
+Route::post('/add-appointment', [AppointmentClientController::class,'store'])->name('appointment.store');
+
+Route::post('/comment-product/{id}', [ClientProductReviewController::class,'comments'])->name('comment.product');
+
+Route::get('order-paymentCallback', [ClienOrderHistoryController::class, 'paymentCallback'])->name('order.paymentCallback');
 
 Route::get('auth/{provider}/redirect', [GoogleLoginController::class, 'redirect'])->name('socialite.redirect');
 Route::get('auth/{provider}/callback', [GoogleLoginController::class, 'callback'])->name('socialite.callback');
@@ -67,6 +76,10 @@ Route::post('/shipper/login',[LoginController::class,'shipperLogin'])->name('shi
 Route::middleware(['auth:admin'])->group(function () {
 
     Route::get('/dashboard', [HomeController::class,'index'])->name('dashboard');
+
+    Route::get('/profile/{id}', [ProfileController::class,'index'])->name('profile.edit');
+    Route::put('/update-profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/update-profile-password-admin/{id}', [ProfileController::class, 'updatePassword'])->name('profile.update-password-admin');
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
     Route::get('/create-categories', [CategoryController::class, 'create'])->name('categories.create');
@@ -149,4 +162,8 @@ Route::middleware(['auth:shipper'])->group(function () {
     Route::get('/shipperList', [ShipperPageController::class,'list'])->name('shipperList');
     Route::get('/edit-shipperPage/{id}', [ShipperPageController::class, 'edit'])->name('shipperPage.edit');
     Route::put('/update-shipperPage/{id}', [ShipperPageController::class, 'update'])->name('shipperPage.update');
+
+    Route::get('/shipper/{id}', [ShipperProfileController::class,'index'])->name('shipper.edit');
+    Route::put('/update-shipper/{id}', [ShipperProfileController::class, 'update'])->name('shipper.update');
+    Route::put('/update-shipper-password-profile/{id}', [ShipperProfileController::class, 'updatePassword'])->name('shipper.update-password-profile');
 });
