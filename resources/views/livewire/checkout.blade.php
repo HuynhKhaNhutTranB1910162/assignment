@@ -58,7 +58,7 @@
                             <div >
                                 <input wire:model.live="paymentType" value="payment" type="radio" id="payment">
                                 <label for="payment"> Thanh toán qua ngân hàng</label>
-                                <img src="{{asset('client/img/shop-details/details-payment.png')}}" alt="">
+                                <img src="{{asset('client/img/shopping-cart/payment1.png')}}" alt="">
                                 <span class="checkmark"></span>
                             </div>
                         <br>

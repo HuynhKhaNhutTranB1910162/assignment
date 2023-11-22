@@ -152,6 +152,9 @@ class Checkout extends Component
             ]);
         }
 
+        Mail::to($order->user->email)->send(new OrderMail($order));
+        Cart::where('user_id', Auth::user()->id)->delete();
+
         return redirect($vnp_Url)->with([
             'code' => '00',
             'message' => 'success',

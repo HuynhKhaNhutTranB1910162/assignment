@@ -35,7 +35,7 @@
 
     <div class="container">
         <div class="blog__details__comment">
-            <h4>Đặt lịch</h4>
+            <h4>Tư vấn Miễn phí</h4>
             <form action="{{ route('appointment.store') }}" method="POST">
                 @csrf
                 <div class="row">
@@ -52,15 +52,11 @@
                         <input name="phone" type="text" placeholder="Phone">
 
                     </div>
-                    <div class="col-lg-4 col-md-4">
-                        @error('appointment_at') <span style="color: red;" class="error">{{ $message }}</span> @enderror
-                        <input name="appointment_at" type="datetime-local" placeholder="appointment_at">
-                    </div>
-                    <div class="col-lg-8 col-md-4">
+                    <div class="col-lg-12 text-center">
                         <textarea name="notes" placeholder="Comment"></textarea>
                     </div>
                     <div class="col-lg-12 text-center">
-                        <button type="submit" class="site-btn">Đặt lịch</button>
+                        <button type="submit" class="site-btn">Đăng ký ngay</button>
                     </div>
                 </div>
             </form>

@@ -12,7 +12,7 @@ return new class () extends Migration {
             $table->string('name');
             $table->string('phone');
             $table->string('email');
-            $table->dateTime('appointment_at');
+            $table->string('status')->default('pending');
             $table->string('notes')->nullable();
             $table->timestamps();
         });

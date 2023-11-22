@@ -41,7 +41,7 @@ class OrderHistoryController extends Controller
         ]);
 
         foreach ($orderProducts as $orderProduct){
-            OrderProduct::update([
+            OrderProduct::updated([
                 'quantity' => $orderProduct->quantity,
             ]);
             $findProduct = Product::getProductById($orderProduct->product->id);
@@ -55,27 +55,6 @@ class OrderHistoryController extends Controller
         return redirect()->back();
     }
 
-//    public function thankyou()
-//    {
-//        $categories = Category::all();
-//
-//        $response = request()->query->all();
-//
-//        if(!$response){
-//            return view('client.order.thankyou', compact('categories'));
-//        }
-//
-//        if ($response['vnp_TransactionStatus'] != '00') {
-//            return redirect()->back();
-//        }
-//
-//        Cart::where('user_id', Auth::user()->id)->delete();
-//        Order::where('tracking_number', $response['vnp_TxnRef'])->update([
-//            'payment_status' => 'thanh cong',
-//        ]);
-//
-//        return view('client.order.thankyou', compact('categories'));
-//    }
     public function thankyou()
     {
         $categories = Category::all();
@@ -127,7 +106,5 @@ class OrderHistoryController extends Controller
         return view('client.order.thankyou', [
             'message' => $message,
         ]);
-
     }
-
 }

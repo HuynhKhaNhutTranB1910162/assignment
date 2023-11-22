@@ -140,10 +140,7 @@
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                     >
-                        <path
-                            d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
-                        ></path>
-                        <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4H1m3 4H1m3 4H1m3 4H1m6.071.286a3.429 3.429 0 1 1 6.858 0M4 1h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Zm9 6.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>
                     </svg>
                     <span class="ml-4">Quản lý người dùng</span>
                 </a>
@@ -232,35 +229,20 @@
                     <span class="ml-4">Quản lý Shipper</span>
                 </a>
             </li>
-{{--            <li class="relative px-6 py-3">--}}
-{{--                @if(request()->routeIs('users'))--}}
-{{--                    <span--}}
-{{--                        class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"--}}
-{{--                        aria-hidden="true"--}}
-{{--                    ></span>--}}
-{{--                @endif--}}
-{{--                <a--}}
-{{--                    class="{{ request()->routeIs('users') ? 'text-gray-800' : '' }} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"--}}
-{{--                    href=" {{ route('users') }} "--}}
-{{--                >--}}
-{{--                    <svg--}}
-{{--                        class="w-5 h-5"--}}
-{{--                        aria-hidden="true"--}}
-{{--                        fill="none"--}}
-{{--                        stroke-linecap="round"--}}
-{{--                        stroke-linejoin="round"--}}
-{{--                        stroke-width="2"--}}
-{{--                        viewBox="0 0 24 24"--}}
-{{--                        stroke="currentColor"--}}
-{{--                    >--}}
-{{--                        <path--}}
-{{--                            d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"--}}
-{{--                        ></path>--}}
-{{--                        <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>--}}
-{{--                    </svg>--}}
-{{--                    <span class="ml-4">Quản lý người dùng</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
+            <li class="relative px-6 py-3">
+                @if(request()->routeIs('appointments'))
+                    <span
+                        class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                        aria-hidden="true"
+                    ></span>
+                @endif
+                <a class="{{ request()->routeIs('appointments') ? 'text-gray-800' : '' }} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="{{ route('appointments') }}">
+                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16.344 12.168-1.4-1.4a1.98 1.98 0 0 0-2.8 0l-.7.7a1.98 1.98 0 0 1-2.8 0l-2.1-2.1a1.98 1.98 0 0 1 0-2.8l.7-.7a1.981 1.981 0 0 0 0-2.8l-1.4-1.4a1.828 1.828 0 0 0-2.8 0C-.638 5.323 1.1 9.542 4.78 13.22c3.68 3.678 7.9 5.418 11.564 1.752a1.828 1.828 0 0 0 0-2.804Z"/>
+                    </svg>
+                    <span class="ml-4">Quản lý Tư vấn</span>
+                </a>
+            </li>
         </ul>
         @endif
         @if((Auth::guard('admin')->user()->is_admin) == 2)
@@ -451,15 +433,21 @@
                         <span class="ml-4">Quản lý đơn hàng</span>
                     </a>
                 </li>
+                <li class="relative px-6 py-3">
+                    @if(request()->routeIs('appointments'))
+                        <span
+                            class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                            aria-hidden="true"
+                        ></span>
+                    @endif
+                    <a class="{{ request()->routeIs('appointments') ? 'text-gray-800' : '' }} inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="{{ route('appointments') }}">
+                        <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16.344 12.168-1.4-1.4a1.98 1.98 0 0 0-2.8 0l-.7.7a1.98 1.98 0 0 1-2.8 0l-2.1-2.1a1.98 1.98 0 0 1 0-2.8l.7-.7a1.981 1.981 0 0 0 0-2.8l-1.4-1.4a1.828 1.828 0 0 0-2.8 0C-.638 5.323 1.1 9.542 4.78 13.22c3.68 3.678 7.9 5.418 11.564 1.752a1.828 1.828 0 0 0 0-2.804Z"/>
+                        </svg>
+                        <span class="ml-4">Quản lý Tư vấn</span>
+                    </a>
+                </li>
             </ul>
         @endif
-        <div class="px-6 my-6">
-            <button
-                class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-            >
-                Create account
-                <span class="ml-2" aria-hidden="true">+</span>
-            </button>
-        </div>
     </div>
 </aside>

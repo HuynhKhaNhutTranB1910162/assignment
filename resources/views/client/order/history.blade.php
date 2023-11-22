@@ -1,7 +1,6 @@
 @extends('client.layouts.app')
 
 @section('content')
-    <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-option">
         <div class="container">
             <div class="row">

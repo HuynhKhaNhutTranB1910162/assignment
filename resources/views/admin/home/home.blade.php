@@ -104,62 +104,294 @@
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             Charts
         </h2>
-        <div class="grid gap-6 mb-8 md:grid-cols-2">
-            <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
-                    Revenue
-                </h4>
-                <canvas id="pie"></canvas>
-                <div
-                    class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400"
-                >
-                    <!-- Chart legend -->
-                    <div class="flex items-center">
-                    <span
-                        class="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full"
-                    ></span>
-                        <span>Shirts</span>
-                    </div>
-                    <div class="flex items-center">
-                    <span
-                        class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"
-                    ></span>
-                        <span>Shoes</span>
-                    </div>
-                    <div class="flex items-center">
-                    <span
-                        class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"
-                    ></span>
-                        <span>Bags</span>
-                    </div>
-                </div>
+        <div class="flex justify-center">
+            <div class="mr-4">
+                <label class="block text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">Từ ngày</span>
+                    <input id="startDate" name="startDate" type="date" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Jane Doe">
+                </label>
             </div>
-            <div
-                class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
-            >
+            <div>
+                <label class="block text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">Đến ngày</span>
+                    <input id="endDate" name="endDate" type="date" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Jane Doe">
+                </label>
+            </div>
+            <button type="submit" id="filterBtn" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                Lọc
+            </button>
+        </div>
+<br>
+
+        <div class="grid gap-6 mb-8 md:grid-cols-6">
+            <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
                 <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
-                    Traffic
+                    Bảng thống kê phần trăm 3 sản phẩm bán chạy
                 </h4>
-                <canvas id="line"></canvas>
-                <div
-                    class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400"
-                >
-                    <!-- Chart legend -->
-                    <div class="flex items-center">
-                    <span
-                        class="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full"
-                    ></span>
-                        <span>Organic</span>
-                    </div>
-                    <div class="flex items-center">
-                    <span
-                        class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"
-                    ></span>
-                        <span>Paid</span>
-                    </div>
-                </div>
+                <canvas id="chartTopSellingProducts" style="display: block; height: 280px; width: 560px;" width="840px" height="420px" class="chartjs-render-monitor"></canvas>
+            </div>
+            <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"><div class="chartjs-size-monitor">
+                    <div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
+                    Bảng thống kê doanh thu theo tháng
+                </h4>
+                <canvas id="ChartOnlyMonth" style="display: block; height: 280px; width: 560px;" width="840px" height="420px" class="chartjs-render-monitor"> </canvas>
+            </div>
+            <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"><div class="chartjs-size-monitor">
+                    <div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
+                    Bảng thống kê trạng thái đơn hàng
+                </h4>
+                <canvas id="ChartStatusOrder" style="display: block; height: 280px; width: 560px;" width="840px" height="420px" class="chartjs-render-monitor"> </canvas>
             </div>
         </div>
     </div>
 </main>
+@endsection
+
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var getId = document.getElementById('ChartOnlyMonth');
+
+            var chart = new Chart(getId, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Doanh thu',
+                        data: [],
+                        fill: false,
+                        borderColor: 'rgb(128, 42, 247)',
+                        tension: 0.1
+                    }]
+                },
+            });
+
+            function loadChart(startDate, endDate) {
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '{{ route('getChartOnlyMonth-revenue') }}',
+                    data: {
+                        startDate: startDate,
+                        endDate: endDate
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        chart.data.labels = response.labels
+                        chart.data.datasets[0].data = response.data;
+                        chart.update();
+                    }
+                });
+            }
+
+            $('#filterBtn').click(function(e) {
+                e.preventDefault();
+
+                var startAt = $('#startDate').val();
+                var endAt = $('#endDate').val();
+                console.log(startAt)
+                console.log(endAt)
+
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '{{ route('filterGetChartOnlyMonth-revenue') }}',
+                    data: {
+                        startDate: startAt,
+                        endDate: endAt,
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        chart.data.labels = response.labels
+                        chart.data.datasets[0].data = response.data;
+                        chart.update();
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                });
+            });
+            loadChart();
+        });
+    </script>
+
+{{--    <script>--}}
+{{--        $(document).ready(function() {--}}
+{{--            $.ajax({--}}
+{{--                type: 'GET',--}}
+{{--                dataType: 'json',--}}
+{{--                url: '{{ route('ChartStatusOrder-revenue') }}',--}}
+{{--                success: function(response) {--}}
+{{--                    const ctx = document.getElementById('ChartStatusOrder');--}}
+
+{{--                    new Chart(ctx, {--}}
+{{--                        type: 'doughnut',--}}
+{{--                        data: {--}}
+{{--                            labels: response.labels,--}}
+{{--                            datasets: [{--}}
+{{--                                label: 'Phần trăm',--}}
+{{--                                data: response.data,--}}
+{{--                                backgroundColor: [--}}
+{{--                                    'rgb(255, 99, 132)',--}}
+{{--                                    'rgb(54, 162, 235)',--}}
+{{--                                    'rgb(255, 205, 86)',--}}
+{{--                                ],--}}
+{{--                            }]--}}
+{{--                        },--}}
+{{--                        options: {--}}
+{{--                            scales: {--}}
+{{--                                y: {--}}
+{{--                                    beginAtZero: true--}}
+{{--                                }--}}
+{{--                            }--}}
+{{--                        }--}}
+{{--                    });--}}
+{{--                }--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
+
+    <script>
+        $(document).ready(function() {
+            var getId = document.getElementById('chartTopSellingProducts');
+
+            var chart = new Chart(getId, {
+                type: 'doughnut',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Phần trăm',
+                        data: [],
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)',
+                        ],
+                    }]
+                },
+            });
+
+            function loadChart(startDate, endDate) {
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '{{ route('topSellingProducts-revenue') }}',
+                    data: {
+                        startDate: startDate,
+                        endDate: endDate
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        chart.data.labels = response.labels
+                        chart.data.datasets[0].data = response.data;
+                        chart.update();
+                    }
+                });
+            }
+
+            $('#filterBtn').click(function(e) {
+                e.preventDefault();
+
+                var startAt = $('#startDate').val();
+                var endAt = $('#endDate').val();
+                console.log(startAt)
+                console.log(endAt)
+
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '{{ route('chartTopSellingProductOnlyMonth-revenue') }}',
+                    data: {
+                        startDate: startAt,
+                        endDate: endAt,
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        chart.data.labels = response.labels
+                        chart.data.datasets[0].data = response.data;
+                        chart.update();
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                });
+            });
+            loadChart();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            var getId = document.getElementById('ChartStatusOrder');
+
+            var chart = new Chart(getId, {
+                type: 'pie',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Phần trăm',
+                        data: [],
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)',
+                            'rgb(74, 212, 32)',
+                            'rgb(195, 33, 217)',
+                        ],
+                    }]
+                },
+            });
+
+            function loadChart(startDate, endDate) {
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '{{ route('ChartStatusOrder-revenue') }}',
+                    data: {
+                        startDate: startDate,
+                        endDate: endDate
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        chart.data.labels = response.labels
+                        chart.data.datasets[0].data = response.data;
+                        chart.update();
+                    }
+                });
+            }
+
+            $('#filterBtn').click(function(e) {
+                e.preventDefault();
+
+                var startAt = $('#startDate').val();
+                var endAt = $('#endDate').val();
+                console.log(startAt)
+                console.log(endAt)
+
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '{{ route('chartStatusOrderOnlyMonth-revenue') }}',
+                    data: {
+                        startDate: startAt,
+                        endDate: endAt,
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        chart.data.labels = response.labels
+                        chart.data.datasets[0].data = response.data;
+                        chart.update();
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                });
+            });
+            loadChart();
+        });
+    </script>
 @endsection

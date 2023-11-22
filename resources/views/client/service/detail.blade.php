@@ -80,29 +80,6 @@
                     </div>
                 </div>
             </div>
-            <div class="blog__details__comment">
-                <h4>Leave A Comment</h4>
-                <form action="#">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4">
-                            <input type="text" placeholder="Name">
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <input type="email" placeholder="Email">
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <input type="tel" placeholder="Phone">
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <input type="datetime-local" placeholder="Email">
-                        </div>
-                        <div class="col-lg-12 text-center">
-                            <textarea placeholder="Comment"></textarea>
-                            <button type="submit" class="site-btn">Post Comment</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
     </section>
 @endsection

@@ -70,7 +70,7 @@
             </div>
             <div class="col-lg-3 col-md-3">
                 <div class="header__nav__option">
-                    <a href="#"><img src="{{asset('client/img/icon/heart.png')}}" alt=""></a>
+                    <a href="{{ route('favorite') }}"><img src="{{asset('client/img/icon/heart.png')}}" alt=""></a>
                     <a href="{{ route('cart-product') }}"><img src="{{asset('client/img/icon/cart.png')}}" alt=""> <span>@if(Auth::check()) {{!is_null(\App\Models\Cart::where('user_id', Auth::user()->id)->get())
                                                                                                                                 ? count(\App\Models\Cart::where('user_id', Auth::user()->id)->get()) : 0 }}@endif</span></a>
                 </div>

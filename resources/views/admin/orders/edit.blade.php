@@ -121,7 +121,7 @@
                 </div>
             </form>
         </div>
-        @if(!$order->status === 'success')
+        @if($order->status != 'success')
             <div class="container px-6 mx-auto grid">
                 <form action="{{ route('orders.update', ['id' => $order->id]) }}" method="POST">
                     @method('PUT')

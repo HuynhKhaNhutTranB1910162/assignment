@@ -41,12 +41,18 @@
                                             <a href="{{route('orders.detail.update', ['id' => $order->id])}}"></i> Hủy đơn hàng</a>
                                         </div>
                                     </div>
-                                @endif
-                                @if( $order->status === 'success' && $order->reviews == 'NULL')
+                                @elseif($order->status === 'success' && $order->reviews == NULL)
                                     <div>
                                         <button class="btn btn-outline-warning" type="button" data-toggle="modal" data-target="#exampleModal">Đánh giá đơn hàng</button>
                                     </div>
+                                @else
+                                    <div></div>
                                 @endif
+{{--                                @if( $order->status === 'success' && $order->reviews === 'NULL')--}}
+{{--                                    <div>--}}
+{{--                                        <button class="btn btn-outline-warning" type="button" data-toggle="modal" data-target="#exampleModal">Đánh giá đơn hàng</button>--}}
+{{--                                    </div>--}}
+{{--                                @endif--}}
                             </div>
                             <hr class="my-4">
 

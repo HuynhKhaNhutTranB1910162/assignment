@@ -17,7 +17,17 @@ class OrderAdminController extends Controller
 
     public function index(): View
     {
-        $orders = Order::query()->orderByDesc('created_at')->paginate($this->itemPerPage);
+        $searchTerm = request()->query('searchTerm') ?? '';
+
+        if (is_array($searchTerm)){
+            $searchTerm = '';
+        }
+        $search = '%' . $searchTerm . '%';
+
+        $orders = Order::where(function ($query) use ($search){
+            $query->where('tracking_number', 'like',$search )
+                ->orwhere('id', 'like',$search );
+        })->orderByDesc('created_at')->paginate($this->itemPerPage);
 
         return view('admin.orders.index', compact('orders'));
     }

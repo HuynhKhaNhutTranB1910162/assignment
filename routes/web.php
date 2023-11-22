@@ -9,7 +9,9 @@ use App\Http\Controllers\Admin\OrderAdminController;
 use App\Http\Controllers\Admin\ServicePackageController;
 use App\Http\Controllers\Admin\AccountAdminController;
 use App\Http\Controllers\Admin\ShipperController;
+use App\Http\Controllers\Admin\AppointmentAdminController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\chartController;
 use App\Http\Controllers\Admin\ReceiptController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\GoogleLoginController;
@@ -26,6 +28,7 @@ use App\Http\Controllers\Client\ProfileController as ClientProfileController;
 use App\Http\Controllers\Client\ProductReviewController as ClientProductReviewController;
 use App\Http\Controllers\Client\ServiceController as ClientServiceController;
 use App\Http\Controllers\Client\OrderHistoryController as ClienOrderHistoryController;
+use App\Http\Controllers\Client\FavoriteController as ClienFavoriteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -54,6 +57,10 @@ Route::get('/order-detail/{id}', [ClienOrderHistoryController::class,'detail'])-
 Route::put('/order-review/{id}', [ClientOrderController::class,'review'])->name('order.review');
 Route::get('/order-detail-update/{id}', [ClienOrderHistoryController::class, 'cancel'])->name('orders.detail.update')->middleware(['auth', 'verified']);
 Route::get('/thankyou', [ClienOrderHistoryController::class,'thankyou'])->name('thankyou')->middleware(['auth', 'verified']);
+
+Route::get('/favorite', [ClienFavoriteController::class,'index'])->name('favorite')->middleware(['auth', 'verified']);
+Route::post('/favorite/{id}', [ClientProductController::class,'addToFavorite'])->name('favorite.addToFavorite');
+Route::get('/favorite-delete/{id}', [ClienFavoriteController::class,'destroy'])->name('favorite.delete');
 
 Route::post('/add-appointment', [AppointmentClientController::class,'store'])->name('appointment.store');
 
@@ -155,6 +162,17 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::put('/update-shippers/{id}', [ShipperController::class, 'update'])->name('shippers.update');
     Route::put('/update-shippers-password/{id}', [ShipperController::class, 'updatePassword'])->name('shippers.update-password');
     Route::get('/delete-shippers/{id}', [ShipperController::class, 'destroy'])->name('shippers.delete');
+
+    Route::get('/appointments', [AppointmentAdminController::class, 'index'])->name('appointments');
+    Route::get('/edit-appointment/{id}', [AppointmentAdminController::class, 'edit'])->name('appointment.edit');
+    Route::put('/update-appointment/{id}', [AppointmentAdminController::class, 'update'])->name('appointment.update');
+
+    Route::get('/getChartOnlyMonth', [ChartController::class, 'getChartOnlyMonth'])->name('getChartOnlyMonth-revenue');
+    Route::get('/filterGetChartOnlyMonth', [ChartController::class, 'filterGetChartOnlyMonth'])->name('filterGetChartOnlyMonth-revenue');
+    Route::get('/chartTopSellingProductsYear', [ChartController::class, 'chartTopSellingProducts'])->name('topSellingProducts-revenue');
+    Route::get('/chartTopSellingProductOnlyMonth', [ChartController::class, 'chartTopSellingProductOnlyMonth'])->name('chartTopSellingProductOnlyMonth-revenue');
+    Route::get('/ChartStatusOrder', [ChartController::class, 'ChartStatusOrder'])->name('ChartStatusOrder-revenue');
+    Route::get('/chartStatusOrderOnlyMonth', [ChartController::class, 'chartStatusOrderOnlyMonth'])->name('chartStatusOrderOnlyMonth-revenue');
 });
 
 Route::middleware(['auth:shipper'])->group(function () {

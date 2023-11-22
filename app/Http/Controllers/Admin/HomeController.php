@@ -29,4 +29,6 @@ class HomeController extends Controller
         return view('admin.home.home',
             compact('newOrders','bounceRate','userCount','monthlyRevenue','month'));
     }
+
+
 }

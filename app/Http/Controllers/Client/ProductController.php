@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Favorite;
 use App\Models\Product;
 use App\Models\ProductReview;
 use Illuminate\Http\RedirectResponse;
@@ -27,7 +28,24 @@ class ProductController extends Controller
         $productRelated = Product::all()->take(4);
         $productReview = ProductReview::where('product_id', $product->id)->get();
         $productRating = round(ProductReview::where('product_id', $product->id)->avg('rating'),1);
-        return view('client.product.detail', compact('categories', 'productRelated', 'product','productReview','productRating'));
+
+        $checkBought = false;
+
+        if (Auth::user()) {
+            $productIds = [];
+
+            foreach (Auth::user()->orders as $order) {
+                foreach ($order->orderProduct as $orderProduct) {
+                    $productIds[] = $orderProduct->product_id;
+                }
+            }
+
+            if(in_array($id, $productIds)) {
+                $checkBought = true;
+            }
+        }
+
+        return view('client.product.detail', compact('categories', 'productRelated', 'product','productReview','productRating','checkBought'));
     }
 
     public function addToCart(Request $request, int $productId): RedirectResponse
@@ -70,4 +88,30 @@ class ProductController extends Controller
 
         return redirect()->back();
     }
+
+    public function addToFavorite(int $productId): RedirectResponse
+    {
+        if (! Auth::check()) {
+            toastr()->warning('Đăng nhập trước khi sử dụng dịch vụ');
+            return redirect('login');
+        }
+
+        if (Favorite::where('user_id', Auth::user()->id)->where('product_id', $productId)->exists()) {
+            toastr()->warning('Bạn đã yêu thích sản phẩm.');
+            return redirect()->back();
+        }
+
+        $product = Product::getProductById($productId);
+
+        Favorite::create([
+            'user_id' => Auth::id(),
+            'product_id' => $productId,
+        ]);
+
+        toastr()->success('Thêm sản phẩm' . $product->name . 'vào yêu thích thành công');
+
+        return redirect()->back();
+    }
+
+
 }
