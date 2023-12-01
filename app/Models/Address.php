@@ -18,6 +18,7 @@ class Address extends Model
         'ward_id',
         'district_id',
         'province_id',
+        'phone_number',
     ];
 
     public function user(): BelongsTo

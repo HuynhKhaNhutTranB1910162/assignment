@@ -20,14 +20,23 @@
                                     Đăng xuất
                                 </a>
                             @endif
-                            <a href="{{ route('profile') }}">Profile</a>
+
                         </div>
                         <div class="header__top__hover">
                             <span>Usd <i class="arrow_carrot-down"></i></span>
                             <ul class="dropdown">
-                                <li>USD</li>
-                                <li>EUR</li>
-                                <li>USD</li>
+                                <li><a href="{{ route('profile') }}">Thông tin cá nhân</a></li>
+{{--                                <li class="nav-item dropdown">--}}
+{{--                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                                        Dropdown link--}}
+{{--                                    </a>--}}
+{{--                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">--}}
+{{--                                        <a class="dropdown-item" href="#">Action</a>--}}
+{{--                                        <a class="dropdown-item" href="#">Another action</a>--}}
+{{--                                        <a class="dropdown-item" href="#">Something else here</a>--}}
+{{--                                    </div>--}}
+{{--                                </li>--}}
+                                <li><a href="{{ route('order.history') }}">Lịch sử mua hàng</a></li>
                             </ul>
                         </div>
                     </div>
@@ -48,12 +57,12 @@
                         <li class="{{ request()->routeIs('client') ? 'active' : '' }}"><a href=" {{ route('client') }} ">Trang chủ</a></li>
                         <li class="{{ request()->routeIs('client-service') ? 'active' : '' }}"><a href=" {{ route('client-service') }} ">Dịch vụ</a></li>
                         <li class="{{ request()->routeIs('shop') ? 'active' : '' }}"><a href=" {{ route('shop') }} ">Shop</a>
-                            <ul class="dropdown">
-                                @foreach($categories as $category)
-                                    <li><a href="./about.html">{{$category->name}}</a></li>
-                                @endforeach
+{{--                            <ul class="dropdown">--}}
+{{--                                @foreach($categories as $category)--}}
+{{--                                    <li><a href="./about.html">{{$category->name}}</a></li>--}}
+{{--                                @endforeach--}}
 
-                            </ul>
+{{--                            </ul>--}}
                         </li>
                         <li><a href="./shop.html">Đặt lịch</a></li>
                     </ul>
@@ -61,8 +70,7 @@
             </div>
             <div class="col-lg-3 col-md-3">
                 <div class="header__nav__option">
-                    <a href="#" class="search-switch"><img src="{{asset('client/img/icon/search.png')}}" alt=""></a>
-                    <a href="#"><img src="{{asset('client/img/icon/heart.png')}}" alt=""></a>
+                    <a href="{{ route('favorite') }}"><img src="{{asset('client/img/icon/heart.png')}}" alt=""></a>
                     <a href="{{ route('cart-product') }}"><img src="{{asset('client/img/icon/cart.png')}}" alt=""> <span>@if(Auth::check()) {{!is_null(\App\Models\Cart::where('user_id', Auth::user()->id)->get())
                                                                                                                                 ? count(\App\Models\Cart::where('user_id', Auth::user()->id)->get()) : 0 }}@endif</span></a>
                 </div>

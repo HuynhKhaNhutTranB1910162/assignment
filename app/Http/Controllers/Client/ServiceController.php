@@ -9,7 +9,7 @@ use Illuminate\View\View;
 
 class ServiceController extends Controller
 {
-    public int $itemPerPage = 2;
+    public int $itemPerPage = 10;
     public function index(): View
     {
         $categories = Category::all();

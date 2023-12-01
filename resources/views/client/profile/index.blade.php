@@ -27,6 +27,7 @@
                                     <thead>
                                     <tr>
                                         <th>Tên khách hàng</th>
+                                        <th>Số điện thoại</th>
                                         <th>Địa chỉ</th>
                                         <th>Hoạt động</th>
                                     </tr>
@@ -35,6 +36,7 @@
                                     @foreach($addresses as $item)
                                         <tr>
                                             <td class="product__cart__item__text"><h5>{{ $item->user_name }}</h5></td>
+                                            <td class="cproduct__cart__item">{{ $item->phone_number }}</td>
                                             <td class="cproduct__cart__item">{{ $item->address }}</td>
                                             <td class="cart__close">
                                                 <a href="{{ route('profile.delete', ['id' => $item->id]) }}">
@@ -62,8 +64,9 @@
                                     <li>Tên khách hàng <span>{{ Auth::user()->name }}</span></li>
                                     <li>Email <span>{{ Auth::user()->email }}</span></li>
                                     <li>Số điện thoại <span>{{ Auth::user()->phone }}</span></li>
+                                    <li>Số điện thoại <span>{{ Auth::user()->id }}</span></li>
                                 </ul>
-                                <a href="{{ route('client') }}"><button class="site-btn">Cập nhật thông tin</button></a>
+                                <a href="{{ route('profile.edit-user', ['id' => Auth::user()->id]) }}"><button class="site-btn">Cập nhật thông tin</button></a>
                             </div>
                         </div>
                     </div>

@@ -25,6 +25,7 @@
     <script src="{{asset('admin/assets/js/charts-lines.js')}}" defer></script>
     <script src="{{asset('admin/assets/js/charts-pie.js')}}" defer></script>
 
+
     <script>
 
         function previewFile(input){

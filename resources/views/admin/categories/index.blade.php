@@ -3,8 +3,22 @@
 @section('content')
     <main class="h-full pb-16 overflow-y-auto">
         <div class="container grid px-6 mx-auto">
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            </h2>
+            <br>
+            <div class="flex justify-center flex-1 lg:mr-40">
+                <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
+                   <form method="GET">
+                       <input
+                           class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                           type="text"
+                           name="searchTerm"
+                           placeholder="Tìm kiếm danh mục sản phẩm"
+                           aria-label="Search"/>
+                       <button type="submit">
+                       </button>
+                   </form>
+                </div>
+            </div>
+            <br>
             <div>
                 <a
                     class="justify-between px-6 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"

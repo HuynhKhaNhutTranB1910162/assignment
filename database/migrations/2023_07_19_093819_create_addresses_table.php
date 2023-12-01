@@ -12,6 +12,7 @@ return new class () extends Migration {
             $table->integer('user_id');
             $table->string('user_name');
             $table->string('address');
+            $table->string('phone_number');
             $table->integer('ward_id');
             $table->integer('district_id');
             $table->integer('province_id');

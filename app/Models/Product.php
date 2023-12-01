@@ -29,6 +29,16 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function receiptProduct(): HasMany
+    {
+        return $this->hasMany(ReceiptProduct::class);
+    }
+
+    public function orderProducts(): HasMany
+    {
+        return $this->hasMany(OrderProduct::class);
+    }
+
     public function productImages(): HasMany
     {
         return $this->hasMany(ProductImage::class);
@@ -39,6 +49,11 @@ class Product extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function productReview(): HasMany
+    {
+        return $this->hasMany(ProductReview::class);
+    }
+
     public function carts(): HasMany
     {
         return $this->hasMany(Cart::class, 'productId');
@@ -47,5 +62,10 @@ class Product extends Model
     public static function getProductById(string $id): Model|Collection|Builder|array|null
     {
         return Product::query()->findOrFail($id);
+    }
+
+    public function averageRating()
+    {
+        return $this->productReview()->avg('rating');
     }
 }

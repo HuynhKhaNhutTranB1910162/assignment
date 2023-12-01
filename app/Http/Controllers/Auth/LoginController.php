@@ -6,43 +6,58 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    //    protected $redirectTo = RouteServiceProvider::HOME;
-    protected function authenticated()
-    {
-        if (Auth::user()->is_admin == 1) {
-            return redirect('dashboard')->with('status', 'wellcome to your dashboard');
-        } elseif (Auth::user()->is_admin == 0) {
-            return redirect('/')->with('status', 'Login in successfully');
-        }
-    }
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    protected $redirectTo = RouteServiceProvider::HOME;
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest:shipper')->except('logout');
+    }
+
+    public function showAdminLoginForm()
+    {
+        return view('admin.auth.login', ['url' => route('admin.login-view'), 'title'=>'Admin']);
+    }
+
+    public function adminLogin(Request $request): RedirectResponse
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('admin')->attempt($request->only(['email','password']), $request->get('remember'))){
+            return redirect()->route('dashboard');
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
+    }
+
+    public function showShipperLoginForm()
+    {
+        return view('shipper.auth.login', ['url' => route('shipper.login-view'), 'title'=>'Shipper']);
+    }
+
+    public function shipperLogin(Request $request): RedirectResponse
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if (Auth::guard('shipper')->attempt($request->only(['email','password']), $request->get('remember'))){
+            return redirect()->route('shipperPage');
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
     }
 }

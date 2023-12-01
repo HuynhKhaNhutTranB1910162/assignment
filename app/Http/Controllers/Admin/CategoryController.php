@@ -14,7 +14,19 @@ class CategoryController extends Controller
 
     public function index(): View
     {
-        $categories = Category::query()->orderByDesc('created_at')->paginate($this->itemPerPage);
+        $searchTerm = request()->query('searchTerm') ?? '';
+
+        if (is_array($searchTerm)){
+            $searchTerm = '';
+        }
+        $search = '%' . $searchTerm . '%';
+
+        $categories = Category::where(function ($query) use ($search){
+            $query->where('name', 'like',$search );
+        })->orderByDesc('created_at')
+            ->paginate($this->itemPerPage);
+
+//        $categories = Category::query()->orderByDesc('created_at')->paginate($this->itemPerPage);
 
         return view('admin.categories.index', compact('categories'));
     }

@@ -16,7 +16,6 @@ return new class () extends Migration {
             $table->string('image')->nullable();
             $table->string('provider_id')->nullable();
             $table->string('password');
-            $table->tinyInteger('is_admin')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
