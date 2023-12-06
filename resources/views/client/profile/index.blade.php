@@ -56,7 +56,7 @@
                             <div class="checkout__order">
                                 <h4 class="order__title">Thông tin tài khoản</h4>
                                 <div class="checkout__order__products">
-                                    <div class="blog__item__pic set-bg" data-setbg="{{ asset('client/img/blog/blog-2.jpg') }}">
+                                    <div class="blog__item__pic set-bg" data-setbg="{{ asset('storage/' . Auth::user()->image) }}">
                                     </div>
 
                                 </div>
@@ -64,7 +64,6 @@
                                     <li>Tên khách hàng <span>{{ Auth::user()->name }}</span></li>
                                     <li>Email <span>{{ Auth::user()->email }}</span></li>
                                     <li>Số điện thoại <span>{{ Auth::user()->phone }}</span></li>
-                                    <li>Số điện thoại <span>{{ Auth::user()->id }}</span></li>
                                 </ul>
                                 <a href="{{ route('profile.edit-user', ['id' => Auth::user()->id]) }}"><button class="site-btn">Cập nhật thông tin</button></a>
                             </div>

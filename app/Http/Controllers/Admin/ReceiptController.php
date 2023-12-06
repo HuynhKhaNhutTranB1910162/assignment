@@ -54,9 +54,7 @@ class ReceiptController extends Controller
             return view('admin.receipts.show', compact('products'));
         }
 
-        $products = collect();
-
-        return view('admin.receipts.show', compact('products'));
+        return redirect()->back();
     }
 
     public function addQtyAndPrice(Request $request)

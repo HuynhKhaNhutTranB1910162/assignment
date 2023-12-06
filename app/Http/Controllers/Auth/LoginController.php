@@ -55,7 +55,7 @@ class LoginController extends Controller
         ]);
 
         if (Auth::guard('shipper')->attempt($request->only(['email','password']), $request->get('remember'))){
-            return redirect()->route('shipperPage');
+            return redirect()->route('shipperList');
         }
 
         return back()->withInput($request->only('email', 'remember'));

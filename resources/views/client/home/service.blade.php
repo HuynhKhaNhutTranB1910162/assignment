@@ -21,13 +21,6 @@
                         <div class="product__item__text">
                             <h6>{{$service->name}}</h6>
                             {{--                            <a href="#" class="add-cart">+ Add To Cart</a>--}}
-                            <div class="rating">
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                                <i class="fa fa-star-o"></i>
-                            </div>
                             <h4>{{ CurrencyHelper::format($service->original_price) }}</h4>
                         </div>
                     </div>

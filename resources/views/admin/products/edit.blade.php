@@ -52,18 +52,18 @@
                         </span>
                         @enderror
                     </label>
-                    <label class="block mt-4 text-sm">
-                        <span class="text-gray-700 dark:text-gray-400">
-                          Số lượng sản phẩm
-                        </span>
-                        <input name="stock" value="{{ $product->stock }}" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" placeholder="Thêm số lượng sản phẩm" >
+{{--                    <label class="block mt-4 text-sm">--}}
+{{--                        <span class="text-gray-700 dark:text-gray-400">--}}
+{{--                          Số lượng sản phẩm--}}
+{{--                        </span>--}}
+{{--                        <input name="stock" value="{{ $product->stock }}" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray form-input" placeholder="Thêm số lượng sản phẩm" >--}}
 
-                        @error('stock')
-                        <span class="text-xs text-red-600" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </label>
+{{--                        @error('stock')--}}
+{{--                        <span class="text-xs text-red-600" role="alert">--}}
+{{--                            <strong>{{ $message }}</strong>--}}
+{{--                        </span>--}}
+{{--                        @enderror--}}
+{{--                    </label>--}}
                     <label class="block mt-4 text-sm">
                         <span class="text-gray-700 dark:text-gray-400">
                           Giá

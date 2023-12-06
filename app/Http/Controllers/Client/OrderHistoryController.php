@@ -17,9 +17,45 @@ class OrderHistoryController extends Controller
     public function index(): View
     {
         $categories = Category::all();
-        $orders = Order::where('user_id', Auth::user()->id)->get();
+        $orders = Order::where('user_id', Auth::user()->id)->orderByDesc('created_at')->get();
         return view('client.order.history', compact('categories','orders'));
     }
+
+    public function pending(): View
+    {
+        $categories = Category::all();
+        $orders = Order::where('user_id', Auth::user()->id)->where('status', 'pending')->get();
+        return view('client.orderstatus.pending', compact('categories','orders'));
+    }
+
+    public function accepted(): View
+    {
+        $categories = Category::all();
+        $orders = Order::where('user_id', Auth::user()->id)->where('status', 'accepted')->get();
+        return view('client.orderstatus.accepted', compact('categories','orders'));
+    }
+
+    public function inDelivery(): View
+    {
+        $categories = Category::all();
+        $orders = Order::where('user_id', Auth::user()->id)->where('status', 'inDelivery')->get();
+        return view('client.orderstatus.inDelivery', compact('categories','orders'));
+    }
+
+    public function success(): View
+    {
+        $categories = Category::all();
+        $orders = Order::where('user_id', Auth::user()->id)->where('status', 'success')->get();
+        return view('client.orderstatus.success', compact('categories','orders'));
+    }
+
+    public function cancels(): View
+    {
+        $categories = Category::all();
+        $orders = Order::where('user_id', Auth::user()->id)->where('status', 'cancel')->get();
+        return view('client.orderstatus.cancel', compact('categories','orders'));
+    }
+
 
     public function detail(string $id): View
     {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Favorite;
+use App\Models\OrderProduct;
 use App\Models\Product;
 use App\Models\ProductReview;
 use Illuminate\Http\RedirectResponse;
@@ -25,7 +26,11 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $product = Product::getProductById($id);
-        $productRelated = Product::all()->take(4);
+        $productRelated = OrderProduct::selectRaw('product_id, COUNT(*) as totalSold')
+            ->groupBy('product_id')
+            ->orderBy('totalSold', 'desc')
+            ->limit(4)
+            ->get();
         $productReview = ProductReview::where('product_id', $product->id)->get();
         $productRating = round(ProductReview::where('product_id', $product->id)->avg('rating'),1);
 
@@ -65,6 +70,11 @@ class ProductController extends Controller
         }
 
         $product = Product::getProductById($productId);
+
+        if ($data['qty'] > $product->stock) {
+            toastr()->warning('Số lượng sản phẩm không đủ.');
+            return redirect()->back();
+        }
 
         if ($data['qty']) {
             Cart::create([

@@ -11,9 +11,7 @@
                         <div class="blog__hero__text">
                             <h2>{{ $service->name }}</h2>
                             <ul>
-                                <li>By Deercreative</li>
-                                <li>February 21, 2019</li>
-                                <li>8 Comments</li>
+                                <li><h4>Giá : {{ CurrencyHelper::format($service->original_price) }}</h4></li>
                             </ul>
                         </div>
                     </form>

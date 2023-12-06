@@ -50,7 +50,6 @@ class ProductController extends Controller
 
         $product = Product::create([
             'name' => $data['name'],
-            'stock' => $data['stock'],
             'sku' => $data['sku'],
             'description' => $data['description'],
             'category_id' => $data['category_id'],
@@ -107,7 +106,6 @@ class ProductController extends Controller
 
         $product->update([
             'name' => $data['name'],
-            'stock' => $data['stock'],
             'sku' => $data['sku'],
             'description' => $data['description'],
             'category_id' => $data['category_id'],

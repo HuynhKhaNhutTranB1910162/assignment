@@ -58,6 +58,12 @@ Route::put('/order-review/{id}', [ClientOrderController::class,'review'])->name(
 Route::get('/order-detail-update/{id}', [ClienOrderHistoryController::class, 'cancel'])->name('orders.detail.update')->middleware(['auth', 'verified']);
 Route::get('/thankyou', [ClienOrderHistoryController::class,'thankyou'])->name('thankyou')->middleware(['auth', 'verified']);
 
+Route::get('/order-history-pending', [ClienOrderHistoryController::class,'pending'])->name('order.history.pending')->middleware(['auth', 'verified']);
+Route::get('/order-history-accepted', [ClienOrderHistoryController::class,'accepted'])->name('order.history.accepted')->middleware(['auth', 'verified']);
+Route::get('/order-history-inDelivery', [ClienOrderHistoryController::class,'inDelivery'])->name('order.history.inDelivery')->middleware(['auth', 'verified']);
+Route::get('/order-history-success', [ClienOrderHistoryController::class,'success'])->name('order.history.success')->middleware(['auth', 'verified']);
+Route::get('/order-history-cancel', [ClienOrderHistoryController::class,'cancels'])->name('order.history.cancel')->middleware(['auth', 'verified']);
+
 Route::get('/favorite', [ClienFavoriteController::class,'index'])->name('favorite')->middleware(['auth', 'verified']);
 Route::post('/favorite/{id}', [ClientProductController::class,'addToFavorite'])->name('favorite.addToFavorite');
 Route::get('/favorite-delete/{id}', [ClienFavoriteController::class,'destroy'])->name('favorite.delete');
@@ -173,10 +179,15 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/chartTopSellingProductOnlyMonth', [ChartController::class, 'chartTopSellingProductOnlyMonth'])->name('chartTopSellingProductOnlyMonth-revenue');
     Route::get('/ChartStatusOrder', [ChartController::class, 'ChartStatusOrder'])->name('ChartStatusOrder-revenue');
     Route::get('/chartStatusOrderOnlyMonth', [ChartController::class, 'chartStatusOrderOnlyMonth'])->name('chartStatusOrderOnlyMonth-revenue');
+
+    Route::get('/orderListPending', [OrderAdminController::class,'pending'])->name('orderListPending');
+    Route::get('/orderListAccepted', [OrderAdminController::class,'accepted'])->name('orderListAccepted');
+    Route::get('/orderListSuccess', [OrderAdminController::class,'success'])->name('orderListSuccess');
+    Route::get('/orderListListCancel', [OrderAdminController::class,'cancel'])->name('orderListCancel');
+    Route::get('/orderListInDelivery', [OrderAdminController::class,'inDelivery'])->name('orderListInDelivery');
 });
 
 Route::middleware(['auth:shipper'])->group(function () {
-    Route::get('/shipperPage', [ShipperPageController::class,'index'])->name('shipperPage');
     Route::get('/shipperList', [ShipperPageController::class,'list'])->name('shipperList');
     Route::get('/edit-shipperPage/{id}', [ShipperPageController::class, 'edit'])->name('shipperPage.edit');
     Route::put('/update-shipperPage/{id}', [ShipperPageController::class, 'update'])->name('shipperPage.update');
@@ -184,4 +195,10 @@ Route::middleware(['auth:shipper'])->group(function () {
     Route::get('/shipper/{id}', [ShipperProfileController::class,'index'])->name('shipper.edit');
     Route::put('/update-shipper/{id}', [ShipperProfileController::class, 'update'])->name('shipper.update');
     Route::put('/update-shipper-password-profile/{id}', [ShipperProfileController::class, 'updatePassword'])->name('shipper.update-password-profile');
+
+    Route::get('/shipperListPending', [ShipperPageController::class,'pending'])->name('shipperListPending');
+    Route::get('/shipperListAccepted', [ShipperPageController::class,'accepted'])->name('shipperListAccepted');
+    Route::get('/shipperListSuccess', [ShipperPageController::class,'success'])->name('shipperListSuccess');
+    Route::get('/shipperListCancel', [ShipperPageController::class,'cancel'])->name('shipperListCancel');
+    Route::get('/shipperListRefund', [ShipperPageController::class,'refund'])->name('shipperListRefund');
 });

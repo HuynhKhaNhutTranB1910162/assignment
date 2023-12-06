@@ -79,4 +79,89 @@ class OrderAdminController extends Controller
 
         return redirect('orders');
     }
+
+    public function pending(): View
+    {
+        $searchTerm = request()->query('searchTerm') ?? '';
+
+        if (is_array($searchTerm)){
+            $searchTerm = '';
+        }
+        $search = '%' . $searchTerm . '%';
+
+        $orders = Order::where(function ($query) use ($search){
+            $query->where('tracking_number', 'like',$search )
+                ->orwhere('id', 'like',$search );
+        })->orderByDesc('created_at')->where('status', 'pending')->paginate($this->itemPerPage);
+
+        return view('admin.orders.create', compact('orders'));
+    }
+
+    public function accepted(): View
+    {
+        $searchTerm = request()->query('searchTerm') ?? '';
+
+        if (is_array($searchTerm)){
+            $searchTerm = '';
+        }
+        $search = '%' . $searchTerm . '%';
+
+        $orders = Order::where(function ($query) use ($search){
+            $query->where('tracking_number', 'like',$search )
+                ->orwhere('id', 'like',$search );
+        })->orderByDesc('created_at')->where('status', 'accepted')->paginate($this->itemPerPage);
+
+        return view('admin.orders.accepted', compact('orders'));
+    }
+
+    public function inDelivery(): View
+    {
+        $searchTerm = request()->query('searchTerm') ?? '';
+
+        if (is_array($searchTerm)){
+            $searchTerm = '';
+        }
+        $search = '%' . $searchTerm . '%';
+
+        $orders = Order::where(function ($query) use ($search){
+            $query->where('tracking_number', 'like',$search )
+                ->orwhere('id', 'like',$search );
+        })->orderByDesc('created_at')->where('status', 'inDelivery')->paginate($this->itemPerPage);
+
+        return view('admin.orders.inDelivery', compact('orders'));
+    }
+
+    public function success(): View
+    {
+        $searchTerm = request()->query('searchTerm') ?? '';
+
+        if (is_array($searchTerm)){
+            $searchTerm = '';
+        }
+        $search = '%' . $searchTerm . '%';
+
+        $orders = Order::where(function ($query) use ($search){
+            $query->where('tracking_number', 'like',$search )
+                ->orwhere('id', 'like',$search );
+        })->orderByDesc('created_at')->where('status', 'success')->paginate($this->itemPerPage);
+
+        return view('admin.orders.success', compact('orders'));
+    }
+
+    public function cancel(): View
+    {
+        $searchTerm = request()->query('searchTerm') ?? '';
+
+        if (is_array($searchTerm)){
+            $searchTerm = '';
+        }
+        $search = '%' . $searchTerm . '%';
+
+        $orders = Order::where(function ($query) use ($search){
+            $query->where('tracking_number', 'like',$search )
+                ->orwhere('id', 'like',$search );
+        })->orderByDesc('created_at')->where('status', 'cancel')->paginate($this->itemPerPage);
+
+        return view('admin.orders.cancel', compact('orders'));
+    }
 }

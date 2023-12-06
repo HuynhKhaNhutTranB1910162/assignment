@@ -44,7 +44,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="shop__product__option__right">
-                                    <p>Sort by Price:</p>
+                                    <p>Sắp xếp giá sản phẩm:</p>
                                     <select wire:model.live="sortOrder">
                                         <option value="asc">Giá: từ thấp đến cao</option>
                                         <option value="desc">Giá: từ cao đến thấp</option>
@@ -61,7 +61,15 @@
                                         <div class="product__item__pic set-bg">
                                             <img style="width: 500px" src="{{ asset('storage/' . $product->image) }}">
                                             <ul class="product__hover">
-                                                <li><a href="#"><img src="{{ asset('client/img/icon/heart.png')}} " alt=""></a></li>
+                                                <li>
+                                                    <form id="heart-form-{{ $product->id }}" action="{{ route('favorite.addToFavorite', ['id' => $product->id]) }}" method="POST" class="d-none">
+                                                    @csrf
+                                                    </form>
+                                                <a class="add-heart"  href="#" onclick="event.preventDefault(); document.getElementById('heart-form-{{ $product->id }}').submit();">
+                                                    <img src="{{ asset('client/img/icon/heart.png')}} " alt="">
+                                                </a>
+                                                </li>
+{{--                                                <li><a href="#"><img src="{{ asset('client/img/icon/heart.png')}} " alt=""></a></li>--}}
                                                 <li><a href="{{ route('product-detail', ['id' => $product->id]) }}"><img src="{{asset('client/img/icon/search.png')}}" alt=""></a></li>
                                             </ul>
                                         </div>
@@ -72,7 +80,7 @@
                                                 <input type="number" value="1" hidden name="qty">
                                             </form>
                                             <a class="add-cart"  href="#" onclick="event.preventDefault(); document.getElementById('addtocart-form-{{ $product->id }}').submit();">
-                                                + Add To Cart
+                                                + Thêm giỏ hàng
                                             </a>
                                             <h5>{{ CurrencyHelper::format($product->original_price) }}</h5>
                                         </div>
@@ -81,7 +89,9 @@
                             @endif
                         @endforeach
                     </div>
-                    {{--                    {{ $products->links('client.pagination.index') }}--}}
+                    <div style="display: flex; justify-content: right;">
+                        {{ $products->links() }}
+                    </div>
                 </div>
             </div>
         </div>

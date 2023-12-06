@@ -7,10 +7,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__text">
-                        <h4>Shopping Cart</h4>
+                        <h4>Chi tiết đơn hàng</h4>
                         <div class="breadcrumb__links">
-                            <a href="./index.html">Tất cả</a>
-                            <a href="./shop.html"> <span>đơn hàng</span></a>
                         </div>
                     </div>
                 </div>

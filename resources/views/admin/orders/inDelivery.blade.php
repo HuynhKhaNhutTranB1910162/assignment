@@ -40,7 +40,7 @@
                         </thead>
                         @foreach( $orders as $item)
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                            @if($item->status =='pending')
+                            @if($item->status =='inDelivery')
                                 <tr class="text-gray-700 dark:text-gray-400">
                                     <td class="px-4 py-3 text-sm">
                                         {{$item->id}}

@@ -6,16 +6,21 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\View\View;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ListProduct extends Component
 {
+    use WithPagination;
+
+    protected $paginationTheme = 'bootstrap';
+
+    public $page = 1;
+
     public $searchTerm = '';
     public $selectedCategory = '';
     public $sortOrder;
 
     public $categories;
-
-    public $products;
 
     public function mount()
     {
@@ -36,10 +41,9 @@ class ListProduct extends Component
         }
         $query->orderBy('original_price', $this->sortOrder);
 
-        $this->products = $query->get();
+        $products = $query->paginate(9);
 
-
-        return  view('livewire.list-product');
+        return  view('livewire.list-product',['products' => $products,]);
 
     }
 }

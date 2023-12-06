@@ -82,8 +82,11 @@
                                                     @endfor
                                                     <span> {{$productRating}} ({{$productReview->count()}} reviewer)</span>
                                                 </div>
-                                                <h3>{{!is_null(CurrencyHelper::format($product->selling_price)) ? CurrencyHelper::format($product->selling_price) : CurrencyHelper::format($product->original_price) }}
-                                                    @if(!is_null(CurrencyHelper::format($product->selling_price))) <span>{{ CurrencyHelper::format($product->original_price) }}</span> @endif  </h3>
+                                                <h3>
+                                                    @if($product->selling_price === NULL) {{CurrencyHelper::format($product->original_price)}}
+                                                    @else {{CurrencyHelper::format($product->selling_price)}} <span>{{ CurrencyHelper::format($product->original_price) }}</span>
+                                                    @endif
+                                                </h3>
                                                 <div class="product__details__btns__option">
                                                     <a href="{{ route('favorite.addToFavorite', ['id' => $product->id]) }}" onclick="event.preventDefault(); document.getElementById('addfavorite').submit();">
                                                         <i class="fa fa-heart"></i>Thêm yêu thích</a>
@@ -100,15 +103,15 @@
                                                                 @enderror
                                                             </div>
                                                         </div>
-                                                        <a href="{{ route('cart.addToCart', ['id' => $product->id]) }}" class="primary-btn" onclick="event.preventDefault(); document.getElementById('addcart').submit();">add to cart</a>
+                                                        <a href="{{ route('cart.addToCart', ['id' => $product->id]) }}" class="primary-btn" onclick="event.preventDefault(); document.getElementById('addcart').submit();">Thêm giỏ hàng</a>
                                                     @else
                                                         <span style="color: #b21f2d">Sản phẩm đã hết</span>
                                                     @endif
                                                 </div>
                                                 <div class="product__details__last__option">
                                                     <ul>
-                                                        <li><span>SKU:</span> {{ $product->sku }}</li>
-                                                        <li><span>Categories:</span> {{ $product->category->name }}</li>
+                                                        <li><span>Số lượng còn lại:</span> {{ $product->stock }} sản phẩm</li>
+                                                        <li><span>Danh mục sản phẩm:</span> {{ $product->category->name }}</li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -161,7 +164,7 @@
                                                                  src="{{ asset('storage/' . $item->user->image) }}" alt="avatar" width="40"
                                                                  height="40"/>
                                                             <div>
-                                                                <h6 class="fw-bold mb-1">{{$item->product->name}}</h6>
+                                                                <h6 class="fw-bold mb-1">{{$item->user->name}}</h6>
                                                                 <div class="d-flex align-items-center mb-3">
                                                                     <p class="mb-0">
                                                                         {{ $item->created_at->format('g:i A') }}
@@ -249,7 +252,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="related-title">Sản phẩm nổi bật</h3>
+                    <h3 class="related-title">Sản phẩm bán chạy</h3>
                 </div>
             </div>
             <div class="row">
@@ -257,34 +260,15 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                         <div class="product__item">
 
-                            <div class="product__item__pic set-bg" data-setbg="{{ asset('storage/' . $related->image) }}">
-                                <span class="label">New</span>
+                            <div class="product__item__pic set-bg" data-setbg="{{ asset('storage/' . $related->product->image) }}">
                                 <ul class="product__hover">
                                     <li><a href="#"><img src="{{asset('client/img/icon/heart.png')}}" alt=""></a></li>
-                                    <li><a href="{{ route('product-detail', ['id' => $related->id]) }}"><img src="{{asset('client/img/icon/search.png')}}" alt=""></a></li>
+                                    <li><a href="{{ route('product-detail', ['id' => $related->product->id]) }}"><img src="{{asset('client/img/icon/search.png')}}" alt=""></a></li>
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6>{{ $related->name }}</h6>
-                                <div class="rating">
-                                    @php
-                                        $fullStars = floor($productRating); // Số sao đầy
-                                        $halfStar = $productRating - $fullStars; // Phần nửa sao
-                                        $emptyStars = 5 - $fullStars - ceil($halfStar); // Số sao rỗng
-                                    @endphp
-                                    @for ($i = 1; $i <= $fullStars; $i++)
-                                        <i class="fa fa-star" style="color: #ffa904;"></i>
-                                    @endfor
-
-                                    @if ($halfStar > 0)
-                                        <i class="fa fa-star-half" style="color: #ffa904;"></i>
-                                    @endif
-
-                                    @for ($i = 1; $i <= $emptyStars; $i++)
-                                        <i class="fa fa-star-o" style="color: #ffa904;"></i>
-                                    @endfor
-                                </div>
-                                <h5>{{ CurrencyHelper::format($product->original_price) }}</h5>
+                                <h6>{{ $related->product->name }}</h6>
+                                <h5> {{($related->product->selling_price === NULL) ? CurrencyHelper::format($related->product->selling_price) : CurrencyHelper::format($related->product->original_price) }}</h5>
                             </div>
                         </div>
                     </div>

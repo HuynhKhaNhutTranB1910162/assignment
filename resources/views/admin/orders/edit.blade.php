@@ -134,17 +134,21 @@
                             </h6>
                             <span class="text-gray-700 dark:text-gray-400">Trạng thái đơn hàng:</span>
                             <select name="status" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-                                @switch($order->status)
-                                    @case('pending')
-                                        <option value="pending" >Đang chờ duyệt</option>
-                                    @case('accepted')
-                                        <option value="accepted">Đã được duyệt</option>
-                                    @case('cancel')
-                                        <option value="cancel" >Hủy bỏ</option>
-                                    @case('refund')
-                                        <option value="refund">Hoàn tiền</option>
-                                        @break
-                                @endswitch
+{{--                                @switch($order->status)--}}
+{{--                                    @case('pending')--}}
+{{--                                        <option value="pending" >Đang chờ duyệt</option>--}}
+{{--                                    @case('accepted')--}}
+{{--                                        <option value="accepted">Đã được duyệt</option>--}}
+{{--                                    @case('cancel')--}}
+{{--                                        <option value="cancel">Hủy bỏ</option>--}}
+{{--                                        @break--}}
+{{--                                @endswitch--}}
+                                <option>Chọn trạng thái đơn hàng</option>
+                                <option value="pending"  {{ $order->status ==  'pending' ? 'selected' : ''}}>Đang chờ duyệt</option>
+                                <option value="accepted" {{ $order->status ==  'accepted' ? 'selected' : ''}}>Đã được duyệt</option>
+                                <option value="inDelivery" {{ $order->status ==  'inDelivery' ? 'selected' : ''}}>Đang vận chuyển</option>
+                                <option value="success" {{ $order->status ==  'success' ? 'selected' : ''}}>Thành công</option>
+                                <option value="cancel" {{ $order->status ==  'cancel' ? 'selected' : ''}} >Hủy bỏ</option>
                             </select>
                             @if($order->status == 'accepted')
                                 <br>

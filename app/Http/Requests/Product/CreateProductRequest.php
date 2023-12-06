@@ -10,13 +10,13 @@ class CreateProductRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'stock' => ['required', 'numeric', 'min:0'],
+            'stock' => ['nullable', 'numeric', 'min:0'],
             'sku' => ['required', 'string', 'max:255'],
             'description' => ['required'],
             'category_id' => ['required', 'numeric'],
             'image' => ['required', 'max:4096', 'image'],
             'original_price' => ['required', 'numeric', 'min:0'],
-            'selling_price' => ['required', 'numeric', 'min:0'],
+            'selling_price' => ['nullable', 'numeric', 'min:0'],
             'product_image.*' => ['nullable', 'image',  'max:4096'],
         ];
     }

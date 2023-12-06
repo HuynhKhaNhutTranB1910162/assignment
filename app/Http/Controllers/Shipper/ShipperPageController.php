@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Shipper;
+use App\Traits\ImageTrait;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,11 +14,9 @@ use Illuminate\View\View;
 
 class ShipperPageController extends Controller
 {
-    public function index(): View
-    {
-        return view('shipper.home.home');
-    }
+    use ImageTrait;
 
+    public int $itemPerPage = 10;
     public function list(): View
     {
         $orders = Order::where('shipper_id', Auth::guard('shipper')->user()->id)->get();
@@ -60,7 +59,41 @@ class ShipperPageController extends Controller
 
         toastr()->success('Cập nhật trạng thái thành công');
 
-        return redirect('shipperPage');
+        return redirect('shipperList');
     }
 
+    public function pending(): View
+    {
+        $orders = Order::where('shipper_id', Auth::guard('shipper')->user()->id)->get();
+
+        return view('shipper.status.pending',compact('orders'));
+    }
+
+    public function accepted(): View
+    {
+        $orders = Order::where('shipper_id', Auth::guard('shipper')->user()->id)->get();
+
+        return view('shipper.status.accepted',compact('orders'));
+    }
+
+    public function cancel(): View
+    {
+        $orders = Order::where('shipper_id', Auth::guard('shipper')->user()->id)->get();
+
+        return view('shipper.status.cancel',compact('orders'));
+    }
+
+    public function success(): View
+    {
+        $orders = Order::where('shipper_id', Auth::guard('shipper')->user()->id)->get();
+
+        return view('shipper.status.success',compact('orders'));
+    }
+
+    public function refund(): View
+    {
+        $orders = Order::where('shipper_id', Auth::guard('shipper')->user()->id)->get();
+
+        return view('shipper.status.refund',compact('orders'));
+    }
 }
