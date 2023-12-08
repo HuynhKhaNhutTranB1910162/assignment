@@ -4,12 +4,17 @@ namespace App\Livewire;
 
 use App\Models\Service;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Listservice extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
+    public $page = 1;
+
     public $searchTerm = '';
 
-    public $services;
 
     public function render()
     {
@@ -19,8 +24,8 @@ class Listservice extends Component
             $query->where('name', 'like', '%' . $this->searchTerm . '%');
         }
 
-        $this->services = $query->get();
+        $services = $query->paginate(3);
 
-        return view('livewire.listservice');
+        return view('livewire.listservice',['services' => $services,]);
     }
 }

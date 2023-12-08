@@ -16,6 +16,7 @@ return new class () extends Migration {
             $table->string('stock');
             $table->double('original_price');
             $table->double('selling_price');
+            $table->string('status');
             $table->string('image');
             $table->timestamps();
         });

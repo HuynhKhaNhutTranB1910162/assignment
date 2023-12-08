@@ -63,21 +63,6 @@
                     </div>
                 </div>
             </form>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h3 class="related-title">Hiệu quả dịch vụ</h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 @endsection

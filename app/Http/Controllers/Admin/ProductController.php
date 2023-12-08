@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Traits\ImageTrait;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 
@@ -56,6 +57,7 @@ class ProductController extends Controller
             'image' => $data['image'],
             'original_price' => $data['original_price'],
             'selling_price' => $data['selling_price'],
+            'status' => 1,
         ]);
 
         if (isset($data['product_image'])) {
@@ -133,20 +135,16 @@ class ProductController extends Controller
         return redirect('products');
     }
 
-    public function destroy(string $id): RedirectResponse
+    public function destroy(string $id, Request $request): RedirectResponse
     {
         $product = Product::getProductById($id);
 
-        $image = 'storage/' . $product->image;
-
-        $this->deleteImage($image);
-
-        foreach ($product->productImages as $image) {
-            File::delete($image->image);
-            $image->delete();
-        }
-
-        $product->delete();
+        $data = $request->validate([
+            'status' => 'in:0,1',
+        ]);
+        $product->update([
+            'status' => 0,
+        ]);
 
         toastr()->success('Xóa sản phẩm thành công');
 

@@ -17,16 +17,6 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="shop__product__option__right">
-                                    <p>Sort by Price:</p>
-                                    <select>
-                                        <option value="">Low To High</option>
-                                        <option value="">$0 - $55</option>
-                                        <option value="">$55 - $100</option>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -47,6 +37,9 @@
                                 </div>
                             </div>
                         @endforeach
+                    </div>
+                    <div style="display: flex; justify-content: right;">
+                        {{ $services->links() }}
                     </div>
                 </div>
             </div>

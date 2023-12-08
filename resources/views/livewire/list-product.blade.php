@@ -21,7 +21,7 @@
                                                     <option style="list-style: none;color: #b7b7b7;
                                                                     font-size: 15px;
                                                                     line-height: 32px;"
-                                                            value="">All Categories</option>
+                                                            value="">Danh mục</option>
                                                     @foreach ($categories as $category)
                                                         <option style="list-style: none; color: #b7b7b7;
                                                                       font-size: 15px;
@@ -55,7 +55,7 @@
                     </div>
                     <div class="row">
                         @foreach($products as $product)
-                            @if($product->stock > 0)
+                            @if($product->stock > 0 || $product->status == 1)
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item">
                                         <div class="product__item__pic set-bg">

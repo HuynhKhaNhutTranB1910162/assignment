@@ -37,9 +37,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($orders as $key => $order)
+                                @foreach($orders as $order)
                                 <tr>
-                                    <td class="cart__price">{{ $key + 1 }}</td>
+                                    <td class="cart__price">{{ $order->id  }}</td>
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__text">
                                             <h5>{{ $order->user_name}}</h5>

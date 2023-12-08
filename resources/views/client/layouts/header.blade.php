@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-3">
                 <div class="header__logo">
-                    <a href=" {{ route('client') }} "><img style=" margin-left:100px; width: 150px" src="{{asset('client/img/logo2.png')}}" alt=""></a>
+                    <a href=" {{ route('client') }} "><img style=" margin-left:100px; width: 200px" src="{{asset('client/img/logooo.png')}}" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
